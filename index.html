@@ -1,601 +1,842 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8">
-    <title>The Three Stars</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Three Stars – Digital Solutions Agency</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --plum:#170D27;--plum-mid:#2E1A4A;--plum-soft:#4A2E72;
+  --lav:#9278C8;--lav-lt:#BDA8E0;--lav-pale:#EDE5F6;
+  --blush:#F7F3FC;--cream:#FAF8F5;--off:#FDFCFA;
+  --gold:#B8894E;--gold-lt:#E2C99A;
+  --td:#1E1030;--tm:#3D2860;--tmuted:#7A6890;
+  --fd:'Cormorant Garamond',Georgia,serif;
+  --fb:'Jost',system-ui,sans-serif;
+  --ease:cubic-bezier(0.22,1,0.36,1);
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--fb);background:var(--off);color:var(--td);line-height:1.7;overflow-x:hidden;font-size:16px}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;font-family:var(--fb)}
+ul{list-style:none}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--blush)}
+::-webkit-scrollbar-thumb{background:var(--lav-lt);border-radius:99px}
 
-    <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+/* CURSOR */
+.cstar{position:fixed;pointer-events:none;z-index:9999;color:var(--lav);animation:csFade .9s var(--ease) forwards;transform:translate(-50%,-50%);line-height:1;user-select:none}
+@keyframes csFade{0%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-140%) scale(.2)}}
 
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500&family=Jost:wght@500;600;700&display=swap" rel="stylesheet"> 
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:600;height:70px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(1.2rem,4vw,3.5rem);background:rgba(253,252,250,.85);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(146,120,200,.14);transition:background .35s,box-shadow .35s}
+nav.scrolled{background:rgba(253,252,250,.97);box-shadow:0 1px 30px rgba(23,13,39,.08)}
+.nav-logo{font-family:var(--fd);font-size:1.2rem;font-weight:600;color:var(--plum);letter-spacing:.05em;display:flex;align-items:center;gap:9px;white-space:nowrap}
+.logo-stars{color:var(--lav);font-size:.75rem;letter-spacing:6px}
+.nav-links{display:flex;align-items:center;gap:2.2rem}
+.nav-links a{font-size:.72rem;font-weight:400;letter-spacing:.14em;text-transform:uppercase;color:var(--tmuted);transition:color .2s;white-space:nowrap}
+.nav-links a:hover{color:var(--plum)}
+.nav-cta{background:var(--plum);color:var(--lav-pale)!important;padding:.52rem 1.4rem;border-radius:100px;font-size:.7rem!important;letter-spacing:.14em!important;transition:background .2s,transform .15s!important}
+.nav-cta:hover{background:var(--plum-soft)!important;transform:translateY(-1px)}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:6px;z-index:700}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--plum);transition:transform .3s,opacity .3s;border-radius:2px}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+.drawer-overlay{position:fixed;inset:0;z-index:640;background:rgba(23,13,39,.4);opacity:0;pointer-events:none;transition:opacity .35s;backdrop-filter:blur(3px)}
+.drawer-overlay.open{opacity:1;pointer-events:all}
+.mobile-drawer{position:fixed;top:0;right:0;bottom:0;width:min(300px,80vw);background:var(--off);border-left:1px solid rgba(146,120,200,.15);z-index:650;padding:5.5rem 2rem 2rem;transform:translateX(100%);transition:transform .4s var(--ease);display:flex;flex-direction:column;box-shadow:-8px 0 40px rgba(23,13,39,.12)}
+.mobile-drawer.open{transform:translateX(0)}
+.mobile-drawer a{display:block;padding:1rem 0;border-bottom:1px solid rgba(146,120,200,.1);font-size:.88rem;letter-spacing:.1em;color:var(--tm);text-transform:uppercase;transition:color .2s,padding-left .2s}
+.mobile-drawer a:hover{color:var(--lav);padding-left:6px}
+.mobile-drawer a.m-cta{border:none;margin-top:1.5rem;text-align:center;background:var(--plum);color:var(--lav-pale);border-radius:100px;padding:.85rem 1rem;transition:background .2s}
+.mobile-drawer a.m-cta:hover{background:var(--plum-soft);padding-left:0}
 
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+/* UTILS */
+.wrap{max-width:1100px;margin:0 auto;padding:0 clamp(1.2rem,5vw,2.5rem)}
+.section{padding:clamp(5rem,10vw,9rem) 0;position:relative}
+.label{display:block;font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;color:var(--lav);font-weight:500;margin-bottom:.7rem}
+.title{font-family:var(--fd);font-size:clamp(2rem,4.5vw,3.6rem);font-weight:300;color:var(--plum);line-height:1.1;margin-bottom:1rem}
+.title em{font-style:italic;color:var(--lav)}
+.subtitle{font-size:.92rem;color:var(--tmuted);max-width:480px;line-height:1.85;font-weight:300}
+.btn-primary{display:inline-block;background:var(--lav);color:white;padding:.95rem 2.5rem;border-radius:100px;font-size:.77rem;letter-spacing:.13em;text-transform:uppercase;font-weight:500;border:none;transition:background .2s,transform .15s,box-shadow .2s}
+.btn-primary:hover{background:var(--plum-soft);transform:translateY(-2px);box-shadow:0 10px 28px rgba(146,120,200,.3)}
+.btn-ghost{display:inline-block;border:1px solid rgba(196,168,224,.35);color:var(--lav-pale);padding:.95rem 2.5rem;border-radius:100px;font-size:.77rem;letter-spacing:.13em;text-transform:uppercase;font-weight:400;transition:border-color .2s,background .2s}
+.btn-ghost:hover{border-color:var(--lav);background:rgba(146,120,200,.12)}
 
-    <!-- Libraries Stylesheet -->
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+/* REVEAL */
+.r{opacity:0;transform:translateY(30px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.r.on{opacity:1;transform:none}
+.rd1{transition-delay:.08s}.rd2{transition-delay:.16s}.rd3{transition-delay:.24s}
+.rd4{transition-delay:.32s}.rd5{transition-delay:.4s}.rd6{transition-delay:.48s}
 
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+/* TECH BG */
+.tech-bg{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.tech-bg svg{position:absolute}
 
-    <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
+/* HERO */
+.hero{min-height:100svh;background:var(--plum);display:flex;align-items:center;justify-content:center;text-align:center;padding:clamp(7rem,14vw,10rem) clamp(1.2rem,5vw,2.5rem) clamp(5rem,10vw,7rem);position:relative;overflow:hidden}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(146,120,200,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(146,120,200,.055) 1px,transparent 1px);background-size:60px 60px;animation:gDrift 22s linear infinite}
+@keyframes gDrift{0%{background-position:0 0}100%{background-position:60px 60px}}
+.hero-dots{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(146,120,200,.18) 1.2px,transparent 1.2px);background-size:60px 60px;background-position:30px 30px}
+.orb{position:absolute;border-radius:50%;pointer-events:none;filter:blur(70px)}
+.orb-a{width:55vw;height:55vw;max-width:700px;max-height:700px;top:-20%;right:-15%;background:rgba(146,120,200,.14)}
+.orb-b{width:40vw;height:40vw;max-width:500px;max-height:500px;bottom:-15%;left:-10%;background:rgba(74,46,114,.22)}
+.orb-c{width:20vw;height:20vw;max-width:250px;max-height:250px;top:55%;left:18%;background:rgba(184,137,78,.07)}
+.hero-tech{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.hero-tech svg{position:absolute}
+.hero-content{position:relative;z-index:2;max-width:760px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(184,137,78,.3);padding:.38rem 1.3rem;border-radius:100px;margin-bottom:2.2rem;animation:fadeUp 1s var(--ease) both}
+.hero-stars{font-size:1.1rem;letter-spacing:12px;color:var(--lav-lt);display:block;margin-bottom:1.6rem;animation:fadeUp 1s .1s var(--ease) both}
+.hero-h1{font-family:var(--fd);font-size:clamp(3.4rem,9vw,6.5rem);font-weight:300;line-height:.97;color:var(--cream);letter-spacing:-.015em;margin-bottom:1.8rem;animation:fadeUp 1s .2s var(--ease) both}
+.hero-h1 em{font-style:italic;color:var(--lav-lt)}
+.hero-p{font-size:clamp(.9rem,1.5vw,1rem);color:rgba(189,168,224,.75);max-width:430px;margin:0 auto 3rem;line-height:1.9;font-weight:300;animation:fadeUp 1s .3s var(--ease) both}
+.hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;animation:fadeUp 1s .4s var(--ease) both}
+.scroll-hint{position:absolute;bottom:2.2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--lav-lt);opacity:.38;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;animation:fadeUp 1.2s 1s var(--ease) both}
+.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,transparent,var(--lav-lt));animation:pulse 2.2s 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+/* ABOUT */
+.about-section{background:var(--blush);overflow:hidden}
+.about-intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(3rem,7vw,6rem);align-items:center;margin-bottom:clamp(5rem,9vw,8rem)}
+.about-body{font-size:.93rem;color:var(--tmuted);line-height:1.9;font-weight:300;margin-bottom:1rem}
+.about-right{background:var(--plum);border-radius:24px;padding:clamp(2.2rem,5vw,3.5rem);position:relative;overflow:hidden}
+.about-right::after{content:'';position:absolute;top:-70px;right:-70px;width:220px;height:220px;border-radius:50%;background:rgba(146,120,200,.1)}
+.about-quote{font-family:var(--fd);font-size:clamp(1.35rem,2.5vw,1.65rem);font-weight:300;font-style:italic;color:var(--cream);line-height:1.5;margin-bottom:1.5rem;position:relative;z-index:1}
+.about-quote-sub{font-size:.84rem;color:rgba(189,168,224,.68);font-weight:300;line-height:1.8;z-index:1;position:relative}
+.about-star-mark{font-size:.9rem;letter-spacing:10px;color:var(--lav);display:block;margin-bottom:1.5rem;z-index:1;position:relative}
+
+/* TEAM */
+.team-label-row{text-align:center;margin-bottom:3rem}
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.team-card{background:white;border:1px solid rgba(146,120,200,.13);border-radius:22px;padding:clamp(1.8rem,4vw,2.8rem) clamp(1.5rem,3vw,2.2rem);display:flex;flex-direction:column;transition:transform .28s var(--ease),border-color .28s,box-shadow .28s;position:relative;overflow:hidden}
+.team-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--lav),var(--plum-soft));transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.team-card:hover{transform:translateY(-6px);border-color:rgba(146,120,200,.28);box-shadow:0 16px 50px rgba(23,13,39,.1)}
+.team-card:hover::before{transform:scaleX(1)}
+.team-avatar{width:72px;height:72px;border-radius:50%;background:var(--plum);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:1.9rem;font-weight:300;color:var(--lav-lt);margin-bottom:1.4rem;position:relative;flex-shrink:0}
+.team-avatar::after{content:'';position:absolute;inset:-5px;border-radius:50%;border:1px solid rgba(146,120,200,.22);transition:border-color .3s}
+.team-card:hover .team-avatar::after{border-color:rgba(146,120,200,.55)}
+.team-name{font-family:var(--fd);font-size:1.7rem;font-weight:400;color:var(--plum);margin-bottom:1.4rem}
+.team-contacts{display:flex;flex-direction:column;gap:.65rem;margin-bottom:1.4rem}
+.tc-row{display:flex;align-items:flex-start;gap:.5rem;font-size:.8rem;font-weight:300;color:var(--tmuted);line-height:1.4}
+.tc-label{font-size:.63rem;letter-spacing:.12em;text-transform:uppercase;color:var(--lav);font-weight:500;white-space:nowrap;padding-top:.08rem;flex-shrink:0}
+.portfolio-link{display:inline-flex;align-items:center;gap:.4rem;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--lav);font-weight:500;border:1px solid rgba(146,120,200,.25);padding:.4rem .9rem;border-radius:100px;transition:background .2s,border-color .2s,color .2s;margin-top:auto;width:fit-content}
+.portfolio-link:hover{background:var(--lav);color:white;border-color:var(--lav)}
+.portfolio-link svg{width:11px;height:11px;flex-shrink:0}
+.team-reach-note{max-width:600px;margin:2.5rem auto 0;text-align:center;font-family:var(--fd);font-style:italic;font-size:1rem;color:var(--tmuted);line-height:1.7}
+
+/* SERVICES */
+.services-section{background:var(--off)}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+.svc-card{background:white;border:1px solid rgba(146,120,200,.13);border-radius:22px;padding:2.2rem 2rem 2rem;display:flex;flex-direction:column;transition:transform .28s var(--ease),border-color .28s,box-shadow .28s;position:relative;overflow:hidden}
+.svc-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--lav),var(--plum-soft));transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.svc-card:hover{transform:translateY(-6px);border-color:rgba(146,120,200,.3);box-shadow:0 14px 46px rgba(23,13,39,.09)}
+.svc-card:hover::after{transform:scaleX(1)}
+.svc-icon{width:50px;height:50px;border-radius:14px;background:var(--lav-pale);display:flex;align-items:center;justify-content:center;font-size:1.35rem;margin-bottom:1.4rem;transition:background .25s;flex-shrink:0}
+.svc-card:hover .svc-icon{background:var(--plum)}
+/* Fixed-height heading area so all titles align */
+.svc-title{font-family:var(--fd);font-size:1.28rem;font-weight:500;color:var(--plum);line-height:1.25;min-height:3.2rem;margin-bottom:.7rem;display:flex;align-items:flex-start}
+.svc-body{font-size:.86rem;color:var(--tmuted);line-height:1.8;font-weight:300;flex:1;margin-bottom:1.3rem}
+.svc-tag{display:inline-block;background:var(--blush);color:var(--lav);font-size:.67rem;letter-spacing:.1em;text-transform:uppercase;padding:.28rem .9rem;border-radius:100px;font-weight:500;align-self:flex-start}
+.svc-tag.free{background:#EAF5EF;color:#2A7050}
+
+/* COMMUNITY */
+.community-section{background:var(--plum);padding:clamp(5rem,10vw,9rem) 0;position:relative;overflow:hidden}
+.comm-bg-grid{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(146,120,200,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(146,120,200,.05) 1px,transparent 1px);background-size:70px 70px}
+.comm-bg-dots{position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(circle,rgba(146,120,200,.15) 1px,transparent 1px);background-size:70px 70px;background-position:35px 35px}
+.comm-inner{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:clamp(3rem,7vw,6rem);align-items:center}
+.comm-left .label{color:var(--gold)}
+.comm-left .title{color:var(--cream)}
+.comm-left .title em{color:var(--lav-lt)}
+.comm-left .subtitle{color:rgba(189,168,224,.72);max-width:100%}
+.comm-right{background:rgba(255,255,255,.04);border:1px solid rgba(189,168,224,.15);border-radius:24px;padding:clamp(2rem,4vw,3rem)}
+.comm-body{font-size:.92rem;color:rgba(189,168,224,.75);line-height:1.9;font-weight:300;margin-bottom:1.5rem}
+.comm-note{background:rgba(184,137,78,.1);border:1px solid rgba(184,137,78,.22);border-radius:14px;padding:1.2rem 1.5rem;font-size:.85rem;color:var(--gold-lt);font-weight:300;line-height:1.75;display:flex;gap:.7rem;align-items:flex-start}
+.comm-note-star{color:var(--gold);font-size:.8rem;margin-top:.1rem;flex-shrink:0}
+
+/* PORTFOLIO */
+.portfolio-section{background:var(--blush)}
+.portfolio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+.port-card{border-radius:20px;overflow:hidden;border:1px solid rgba(146,120,200,.13);background:white;cursor:pointer;transition:transform .28s var(--ease),box-shadow .28s}
+.port-card:hover{transform:translateY(-7px);box-shadow:0 18px 54px rgba(23,13,39,.12)}
+.port-thumb{height:clamp(150px,18vw,200px);display:flex;align-items:center;justify-content:center;font-size:clamp(1.8rem,3vw,2.4rem);letter-spacing:6px;position:relative;overflow:hidden}
+.port-overlay{position:absolute;inset:0;background:rgba(23,13,39,0);display:flex;align-items:center;justify-content:center;transition:background .3s}
+.port-card:hover .port-overlay{background:rgba(23,13,39,.32)}
+.port-overlay span{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:white;font-weight:500;opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s}
+.port-card:hover .port-overlay span{opacity:1;transform:none}
+.tc-a{background:var(--plum);color:var(--lav-lt)}
+.tc-b{background:var(--lav-pale);color:var(--plum-mid)}
+.tc-c{background:var(--cream);color:var(--plum)}
+.tc-d{background:var(--plum-mid);color:var(--lav-pale)}
+.tc-e{background:#EDE8F8;color:var(--plum-mid)}
+.tc-f{background:#F5EBD8;color:#6A4A20}
+.port-info{padding:1.1rem 1.4rem}
+.port-info h4{font-size:.91rem;font-weight:500;color:var(--plum);margin-bottom:.22rem}
+.port-info span{font-size:.74rem;color:var(--tmuted);font-weight:300}
+.port-more{text-align:center;margin-top:2.5rem;font-family:var(--fd);font-style:italic;font-size:1rem;color:var(--tmuted)}
+
+/* PRICING */
+.pricing-section{background:var(--off)}
+.pricing-note{display:inline-flex;align-items:center;gap:.6rem;background:var(--blush);border:1px solid rgba(146,120,200,.18);border-radius:12px;padding:.9rem 1.6rem;font-size:.84rem;color:var(--tm);font-weight:300;margin-bottom:3rem}
+.pricing-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;align-items:start}
+.pr-card{background:white;border:1px solid rgba(146,120,200,.13);border-radius:22px;padding:2rem 1.7rem;display:flex;flex-direction:column;transition:transform .22s,border-color .22s,box-shadow .22s}
+.pr-card:hover{transform:translateY(-5px);border-color:rgba(146,120,200,.3);box-shadow:0 10px 36px rgba(23,13,39,.08)}
+.pr-card.feat{background:var(--plum);border-color:var(--plum)}
+.pr-card.feat .pr-name{color:var(--cream)}
+.pr-card.feat .pr-amt{color:var(--lav-lt)}
+.pr-card.feat .pr-sub{color:rgba(189,168,224,.6)}
+.pr-card.feat .pr-item{color:rgba(189,168,224,.8);border-color:rgba(189,168,224,.1)}
+.pr-card.feat .pr-item::before{color:var(--lav-lt)}
+.feat-badge{display:inline-block;background:var(--gold);color:white;font-size:.63rem;letter-spacing:.1em;text-transform:uppercase;padding:.22rem .75rem;border-radius:100px;margin-bottom:.8rem;font-weight:500}
+.pr-name{font-family:var(--fd);font-size:1.18rem;font-weight:500;color:var(--plum);margin-bottom:.38rem}
+.pr-amt{font-family:var(--fd);font-size:2rem;font-weight:300;color:var(--plum);line-height:1;margin-bottom:.18rem}
+.pr-sub{font-size:.72rem;color:var(--tmuted);font-weight:300;display:block;margin-bottom:1.4rem}
+.pr-items{list-style:none;margin-top:auto}
+.pr-item{font-size:.81rem;color:var(--tm);padding:.44rem 0;border-bottom:1px solid rgba(146,120,200,.08);display:flex;align-items:flex-start;gap:.45rem;font-weight:300;line-height:1.5}
+.pr-item::before{content:'✦';color:var(--lav);font-size:.58rem;margin-top:.25rem;flex-shrink:0}
+
+/* REVIEWS */
+.reviews-section{background:var(--blush)}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-bottom:4rem}
+.rv-card{background:white;border:1px solid rgba(146,120,200,.13);border-radius:22px;padding:2.2rem;transition:transform .24s var(--ease),box-shadow .24s}
+.rv-card:hover{transform:translateY(-5px);box-shadow:0 12px 40px rgba(23,13,39,.08)}
+.rv-stars{font-size:.88rem;letter-spacing:3px;color:var(--gold);margin-bottom:1rem}
+.rv-text{font-family:var(--fd);font-size:1.05rem;font-weight:400;font-style:italic;color:var(--tm);line-height:1.7;margin-bottom:1.5rem}
+.rv-author{display:flex;align-items:center;gap:.85rem}
+.rv-avatar{width:42px;height:42px;border-radius:50%;background:var(--lav-pale);display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:500;color:var(--plum-mid);flex-shrink:0}
+.rv-name{font-size:.87rem;font-weight:500;color:var(--plum)}
+.rv-biz{font-size:.73rem;color:var(--tmuted);font-weight:300}
+.rv-form-box{max-width:720px;margin:0 auto;background:white;border:1px solid rgba(146,120,200,.15);border-radius:26px;padding:clamp(2rem,5vw,3.2rem)}
+.rv-form-box h3{font-family:var(--fd);font-size:1.8rem;font-weight:300;color:var(--plum);text-align:center;margin-bottom:.3rem}
+.rv-form-box>p{font-size:.85rem;color:var(--tmuted);text-align:center;font-weight:300;margin-bottom:2rem}
+.star-picker{display:flex;justify-content:center;gap:8px;margin-bottom:2rem}
+.sp-btn{background:none;border:none;font-size:1.6rem;color:var(--lav-pale);cursor:pointer;transition:color .15s,transform .15s;line-height:1}
+.sp-btn.on{color:var(--gold)}
+.sp-btn:hover{transform:scale(1.3)}
+
+/* CONTACT */
+.contact-section{background:var(--off)}
+.contact-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:clamp(3rem,7vw,6rem);align-items:start}
+.ci-block h3{font-family:var(--fd);font-size:1.1rem;font-weight:400;color:var(--plum);margin-bottom:.3rem;margin-top:1.8rem}
+.ci-block h3:first-of-type{margin-top:0}
+.ci-block p{font-size:.85rem;color:var(--tmuted);font-weight:300;line-height:1.75}
+.fg{margin-bottom:1.25rem}
+.fl{display:block;font-size:.68rem;letter-spacing:.13em;text-transform:uppercase;color:var(--lav);font-weight:500;margin-bottom:.42rem}
+.fc{width:100%;padding:.88rem 1.1rem;border:1px solid rgba(146,120,200,.22);border-radius:12px;font-size:.89rem;font-family:var(--fb);color:var(--td);background:white;outline:none;font-weight:300;transition:border-color .2s,box-shadow .2s;-webkit-appearance:none}
+.fc:focus{border-color:var(--lav);box-shadow:0 0 0 3px rgba(146,120,200,.13)}
+.fc::placeholder{color:rgba(122,104,144,.45)}
+textarea.fc{resize:vertical;min-height:130px}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.sub-btn{width:100%;background:var(--plum);color:var(--lav-pale);border:none;padding:1rem 2rem;border-radius:12px;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500;margin-top:.5rem;transition:background .2s,transform .15s,box-shadow .2s}
+.sub-btn:hover{background:var(--plum-soft);transform:translateY(-2px);box-shadow:0 8px 26px rgba(23,13,39,.18)}
+.success-note{display:none;margin-top:1rem;background:#EAF5EF;border:1px solid #A5D6BA;border-radius:10px;padding:.9rem 1.3rem;font-size:.86rem;color:#2A6A45;text-align:center}
+
+/* FOOTER */
+footer{background:var(--plum);padding:clamp(4rem,8vw,5.5rem) clamp(1.2rem,5vw,3rem) 2.5rem;text-align:center;position:relative;overflow:hidden}
+.footer-grid-bg{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(146,120,200,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(146,120,200,.04) 1px,transparent 1px);background-size:60px 60px}
+.footer-stars{font-size:.9rem;letter-spacing:12px;color:var(--lav);margin-bottom:.7rem}
+.footer-name{font-family:var(--fd);font-size:clamp(1.3rem,3vw,1.7rem);font-weight:300;color:var(--cream);letter-spacing:.06em;margin-bottom:.35rem}
+.footer-tag{font-size:.73rem;color:rgba(189,168,224,.45);letter-spacing:.13em;margin-bottom:2.5rem}
+.footer-nav{display:flex;justify-content:center;flex-wrap:wrap;gap:.5rem 2.2rem;margin-bottom:3rem}
+.footer-nav a{font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;color:rgba(189,168,224,.5);transition:color .2s}
+.footer-nav a:hover{color:var(--lav-lt)}
+.footer-hr{border:none;border-top:1px solid rgba(189,168,224,.1);margin-bottom:2rem}
+.footer-copy{font-size:.72rem;color:rgba(189,168,224,.32);font-weight:300}
+.btt{position:fixed;bottom:1.8rem;right:1.8rem;z-index:500;width:44px;height:44px;border-radius:50%;background:var(--lav);color:white;border:none;display:flex;align-items:center;justify-content:center;font-size:1rem;opacity:0;transform:translateY(16px);transition:opacity .3s,transform .3s,background .2s;box-shadow:0 4px 18px rgba(146,120,200,.35)}
+.btt.show{opacity:1;transform:none}
+.btt:hover{background:var(--plum-soft)}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  .pricing-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:900px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .about-intro-grid{grid-template-columns:1fr}
+  .team-grid{grid-template-columns:1fr 1fr}
+  .services-grid{grid-template-columns:1fr 1fr}
+  .portfolio-grid{grid-template-columns:1fr 1fr}
+  .comm-inner{grid-template-columns:1fr}
+  .reviews-grid{grid-template-columns:1fr 1fr}
+  .contact-grid{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .team-grid{grid-template-columns:1fr;max-width:360px;margin-left:auto;margin-right:auto}
+  .services-grid{grid-template-columns:1fr}
+  .pricing-grid{grid-template-columns:1fr}
+  .portfolio-grid{grid-template-columns:1fr}
+  .reviews-grid{grid-template-columns:1fr}
+  .fr{grid-template-columns:1fr}
+  .hero-btns{flex-direction:column;align-items:center}
+  .hero-btns a,.hero-btns button{width:100%;max-width:260px;text-align:center}
+  .svc-title{min-height:auto}
+}
+@media(max-width:380px){
+  .hero-h1{font-size:2.9rem}
+}
+</style>
 </head>
-
 <body>
-    <div class="container-xxl bg-white p-0">
-        <!-- Spinner Start -->
-        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-            <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-        </div>
-        <!-- Spinner End -->
 
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo"><span class="logo-stars">✦ ✦ ✦</span> The Three Stars</div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#portfolio">Work</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#contact" class="nav-cta">Get in touch</a>
+  </div>
+  <button class="hamburger" id="ham" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="drawer-overlay" id="overlay"></div>
+<div class="mobile-drawer" id="drawer">
+  <a href="#about">About</a>
+  <a href="#services">Services</a>
+  <a href="#portfolio">Work</a>
+  <a href="#pricing">Pricing</a>
+  <a href="#reviews">Reviews</a>
+  <a href="#contact" class="m-cta">Get in touch</a>
+</div>
 
-        <!-- Navbar & Hero Start -->
-        <div class="container-xxl position-relative p-0">
-            <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
-                <a href="" class="navbar-brand p-0">
-                    <h1 class="m-0">The Three Stars</h1>
-                    <!-- <img src="img/logo.png" alt="Logo"> -->
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                    <span class="fa fa-bars"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <div class="navbar-nav mx-auto py-0">
-                        <a href="index.html" class="nav-item nav-link active">Home</a>
-                        <a href="about.html" class="nav-item nav-link">About</a>
-                        <a href="service.html" class="nav-item nav-link">Services</a>
-                        <a href="project.html" class="nav-item nav-link">Projects</a>
-                        <a href="contact.html" class="nav-item nav-link">Contact</a>
-                    </div>
-                    <a href="" class="btn rounded-pill py-2 px-4 ms-3 d-none d-lg-block">Get Started</a>
-                </div>
-            </nav>
-
-            <div class="container-xxl bg-primary hero-header">
-                <div class="container px-lg-5">
-                    <div class="row g-5 align-items-end">
-                        <div class="col-lg-6 text-center text-lg-start">
-                            <h1 class="text-white mb-4 animated slideInDown">The Three Stars: Digital Solutions for a Brighter Future</h1>
-                            <p class="text-white pb-3 animated slideInDown">We’re a digital solutions agency dedicated to helping small businesses grow and thrive online. As we expand, we aim to create opportunities for those who lack access to digital skills—empowering them with the knowledge to succeed in the tech world. Together, we’re building a future where innovation and opportunity go hand in hand!</p>
-                            <a href="/about.html" class="btn btn-secondary py-sm-3 px-sm-5 rounded-pill me-3 animated slideInLeft">Read More</a>
-                            <a href="/contact.html" class="btn btn-light py-sm-3 px-sm-5 rounded-pill animated slideInRight">Contact Us</a>
-                        </div>
-                        <div class="col-lg-6 text-center text-lg-start">
-                            <img class="img-fluid animated zoomIn" src="img/hero.png" alt="">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Navbar & Hero End -->
-
-
-        <!-- Feature Start -->
-        <div class="container-xxl py-5">
-            <div class="container py-5 px-lg-5">
-                <div class="row g-4">
-                    <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="feature-item bg-light rounded text-center p-4">
-                            <i class="fa fa-3x fa-mail-bulk text-primary mb-4"></i>
-                            <h5 class="mb-3">Branding</h5>
-                            <p class="m-0">We craft unique brand identities that make your business stand out. From logos and colors to brand voice and messaging, we create a cohesive look and feel that connects with your audience.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="feature-item bg-light rounded text-center p-4">
-                            <i class="fa fa-3x fa-search text-primary mb-4"></i>
-                            <h5 class="mb-3">Development &<br> Design</h5>
-                            <p class="m-0">We build stunning, user-friendly websites tailored to your needs, blending creativity with seamless functionality to elevate your online presence.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
-                        <div class="feature-item bg-light rounded text-center p-4">
-                            <i class="fa fa-3x fa-laptop-code text-primary mb-4"></i>
-                            <h5 class="mb-3">Social Media Management & Digital Marketing Strategies</h5>
-                            <p class="m-0">We craft engaging content, manage your social platforms, and implement data-driven marketing strategies to grow your audience, boost engagement, and turn followers into loyal customers.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Feature End -->
-
-
-        <!-- About Start -->
-        <!-- <div class="container-xxl py-5">
-            <div class="container py-5 px-lg-5">
-                <div class="row g-5 align-items-center">
-                    <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <p class="section-title text-secondary">About Us<span></span></p>
-                        <h1 class="mb-5">Digital solutions agency with 2 years of experience</h1>
-                        <p class="mb-4">Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam et eos labore. Clita erat ipsum et lorem et sit, sed stet no labore lorem sit clita duo justo eirmod magna dolore erat amet</p>
-                        <div class="skill mb-4">
-                            <div class="d-flex justify-content-between">
-                                <p class="mb-2">Digital Marketing</p>
-                                <p class="mb-2">85%</p>
-                            </div>
-                            <div class="progress">
-                                <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-                        <div class="skill mb-4">
-                            <div class="d-flex justify-content-between">
-                                <p class="mb-2">SEO & Backlinks</p>
-                                <p class="mb-2">90%</p>
-                            </div>
-                            <div class="progress">
-                                <div class="progress-bar bg-secondary" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-                        <div class="skill mb-4">
-                            <div class="d-flex justify-content-between">
-                                <p class="mb-2">Design & Development</p>
-                                <p class="mb-2">95%</p>
-                            </div>
-                            <div class="progress">
-                                <div class="progress-bar bg-dark" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-                        <a href="" class="btn btn-primary py-sm-3 px-sm-5 rounded-pill mt-3">Read More</a>
-                    </div>
-                    <div class="col-lg-6">
-                        <img class="img-fluid wow zoomIn" data-wow-delay="0.5s" src="img/about.png">
-                    </div>
-                </div>
-            </div>
-        </div> -->
-        <!-- About End -->
-
-
-        <!-- Facts Start -->
-        <div class="container-xxl bg-primary fact py-5 wow fadeInUp" data-wow-delay="0.1s">
-            <div class="container py-5 px-lg-5">
-                <div class="row g-4">
-                    <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.1s">
-                        <i class="fa fa-certificate fa-3x text-secondary mb-3"></i>
-                        <h1 class="text-white mb-2" data-toggle="counter-up">2</h1>
-                        <p class="text-white mb-0">Years Experience</p>
-                    </div>
-                    <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.3s">
-                        <i class="fa fa-users-cog fa-3x text-secondary mb-3"></i>
-                        <h1 class="text-white mb-2" data-toggle="counter-up">3</h1>
-                        <p class="text-white mb-0">Team Members</p>
-                    </div>
-                    <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.5s">
-                        <i class="fa fa-users fa-3x text-secondary mb-3"></i>
-                        <h1 class="text-white mb-2" data-toggle="counter-up">3</h1>
-                        <p class="text-white mb-0">Satisfied Clients</p>
-                    </div>
-                    <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.7s">
-                        <i class="fa fa-check fa-3x text-secondary mb-3"></i>
-                        <h1 class="text-white mb-2" data-toggle="counter-up">3</h1>
-                        <p class="text-white mb-0">Compleate Projects</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Facts End -->
-
-
-        <!-- Service Start -->
-        <div class="container-xxl py-5">
-            <div class="container py-5 px-lg-5">
-                <div class="wow fadeInUp" data-wow-delay="0.1s">
-                    <p class="section-title text-secondary justify-content-center"><span></span>Our Services<span></span></p>
-                    <h1 class="text-center mb-5">What Solutions We Provide</h1>
-                </div>
-                <div class="row g-4">
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="service-item d-flex flex-column text-center rounded">
-                            <div class="service-icon flex-shrink-0">
-                                <i class="fas fa-lightbulb"></i>
-                            </div>
-                            <h5 class="mb-3">Branding</h5>
-                            <p class="m-0">We craft memorable brand identities that speak your story. From logos to brand voice, we ensure every element reflects your values and connects with your audience authentically.</p>
-                            <a class="btn btn-square" href=""><i class="fa fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="service-item d-flex flex-column text-center rounded">
-                            <div class="service-icon flex-shrink-0">
-                                <i class="fas fa-desktop"></i>
-                            </div>
-                            <h5 class="mb-3">Web Design</h5>
-                            <p class="m-0">Custom websites built with elegance and precision. We design visually captivating, user-friendly sites that function seamlessly across all devices—turning browsers into loyal customers.                            </p>
-                            <a class="btn btn-square" href=""><i class="fa fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                        <div class="service-item d-flex flex-column text-center rounded">
-                            <div class="service-icon flex-shrink-0">
-                                <i class="fas fa-sync-alt"></i>
-                            </div>
-                            <h5 class="mb-3">Web Redesign</h5>
-                            <p class="m-0">Elevate your online presence with a refined digital makeover. We transform outdated websites into modern, engaging platforms that reflect your growth and ambition.                            </p>
-                            <a class="btn btn-square" href=""><i class="fa fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="service-item d-flex flex-column text-center rounded">
-                            <div class="service-icon flex-shrink-0">
-                                <i class="fas fa-tools"></i>
-                            </div>
-                            <h5 class="mb-3">Website Maintenance</h5>
-                            <p class="m-0">Keep your website secure, fast, and always at its best. We handle updates, backups, and performance monitoring—so you can focus on what you do best.                            </p>
-                            <a class="btn btn-square" href=""><i class="fa fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="service-item d-flex flex-column text-center rounded">
-                            <div class="service-icon flex-shrink-0">
-                                <i class="fas fa-hashtag"></i>
-                            </div>
-                            <h5 class="mb-3">Social Media Management</h5>
-                            <p class="m-0">We bring your brand to life on social media through curated content, consistent engagement, and data-driven growth strategies—keeping your audience informed, inspired, and invested.                            </p>
-                            <a class="btn btn-square" href=""><i class="fa fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                        <div class="service-item d-flex flex-column text-center rounded">
-                            <div class="service-icon flex-shrink-0">
-                                <i class="fas fa-bullhorn"></i>
-                            </div>
-                            <h5 class="mb-3">Digital Marketing Strategies</h5>
-                            <p class="m-0">Tailored campaigns that put your business in the spotlight. From SEO to paid ads, we help you attract, convert, and retain customers with strategies that work.                            </p>
-                            <a class="btn btn-square" href=""><i class="fa fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Service End -->
-
-
-        <!-- Newsletter Start -->
-        <!-- <div class="container-xxl bg-primary newsletter py-5 wow fadeInUp" data-wow-delay="0.1s">
-            <div class="container py-5 px-lg-5">
-                <div class="row justify-content-center">
-                    <div class="col-lg-7 text-center">
-                        <p class="section-title text-white justify-content-center"><span></span>Newsletter<span></span></p>
-                        <h1 class="text-center text-white mb-4">Stay Always In Touch</h1>
-                        <p class="text-white mb-4">Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam et eos labore. Clita erat ipsum et lorem et sit sed stet lorem sit clita duo justo</p>
-                        <div class="position-relative w-100 mt-3">
-                            <input class="form-control border-0 rounded-pill w-100 ps-4 pe-5" type="text" placeholder="Enter Your Email" style="height: 48px;">
-                            <button type="button" class="btn shadow-none position-absolute top-0 end-0 mt-1 me-2"><i class="fa fa-paper-plane text-primary fs-4"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-        <!-- Newsletter End -->
-
-
-        <!-- Projects Start -->
-        <div class="container-xxl py-5">
-            <div class="container py-5 px-lg-5">
-                <div class="wow fadeInUp" data-wow-delay="0.1s">
-                    <p class="section-title text-secondary justify-content-center"><span></span>Our Projects<span></span></p>
-                    <h1 class="text-center mb-5">Recently Completed Projects</h1>
-                </div>
-                <div class="row mt-n2 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="col-12 text-center">
-                        <ul class="list-inline mb-5" id="portfolio-flters">
-                            <li class="mx-2 active" data-filter="*">All</li>
-                            <li class="mx-2" data-filter=".first">Web Design</li>
-                            <li class="mx-2" data-filter=".second">Graphic Design</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="row g-4 portfolio-container">
-                    <div class="col-lg-4 col-md-6 portfolio-item first wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="rounded overflow-hidden">
-                            <div class="position-relative overflow-hidden">
-                                <img class="img-fluid w-100" src="img/portfolio-1.jpg" alt="">
-                                <div class="portfolio-overlay">
-                                    <a class="btn btn-square btn-outline-light mx-1" href="img/portfolio-1.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                                    <a class="btn btn-square btn-outline-light mx-1" href=""><i class="fa fa-link"></i></a>
-                                </div>
-                            </div>
-                            <div class="bg-light p-4">
-                                <p class="text-primary fw-medium mb-2">UI / UX Design</p>
-                                <h5 class="lh-base mb-0">Digital Agency Website Design And Development</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 portfolio-item second wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="rounded overflow-hidden">
-                            <div class="position-relative overflow-hidden">
-                                <img class="img-fluid w-100" src="img/portfolio-2.jpg" alt="">
-                                <div class="portfolio-overlay">
-                                    <a class="btn btn-square btn-outline-light mx-1" href="img/portfolio-2.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                                    <a class="btn btn-square btn-outline-light mx-1" href=""><i class="fa fa-link"></i></a>
-                                </div>
-                            </div>
-                            <div class="bg-light p-4">
-                                <p class="text-primary fw-medium mb-2">UI / UX Design</p>
-                                <h5 class="lh-base mb-0">Digital Agency Website Design And Development</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 portfolio-item first wow fadeInUp" data-wow-delay="0.5s">
-                        <div class="rounded overflow-hidden">
-                            <div class="position-relative overflow-hidden">
-                                <img class="img-fluid w-100" src="img/portfolio-3.jpg" alt="">
-                                <div class="portfolio-overlay">
-                                    <a class="btn btn-square btn-outline-light mx-1" href="img/portfolio-3.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                                    <a class="btn btn-square btn-outline-light mx-1" href=""><i class="fa fa-link"></i></a>
-                                </div>
-                            </div>
-                            <div class="bg-light p-4">
-                                <p class="text-primary fw-medium mb-2">UI / UX Design</p>
-                                <h5 class="lh-base mb-0">Digital Agency Website Design And Development</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 portfolio-item second wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="rounded overflow-hidden">
-                            <div class="position-relative overflow-hidden">
-                                <img class="img-fluid w-100" src="img/portfolio-4.jpg" alt="">
-                                <div class="portfolio-overlay">
-                                    <a class="btn btn-square btn-outline-light mx-1" href="img/portfolio-4.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                                    <a class="btn btn-square btn-outline-light mx-1" href=""><i class="fa fa-link"></i></a>
-                                </div>
-                            </div>
-                            <div class="bg-light p-4">
-                                <p class="text-primary fw-medium mb-2">UI / UX Design</p>
-                                <h5 class="lh-base mb-0">Digital Agency Website Design And Development</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 portfolio-item first wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="rounded overflow-hidden">
-                            <div class="position-relative overflow-hidden">
-                                <img class="img-fluid w-100" src="img/portfolio-5.jpg" alt="">
-                                <div class="portfolio-overlay">
-                                    <a class="btn btn-square btn-outline-light mx-1" href="img/portfolio-5.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                                    <a class="btn btn-square btn-outline-light mx-1" href=""><i class="fa fa-link"></i></a>
-                                </div>
-                            </div>
-                            <div class="bg-light p-4">
-                                <p class="text-primary fw-medium mb-2">UI / UX Design</p>
-                                <h5 class="lh-base mb-0">Digital Agency Website Design And Development</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 portfolio-item second wow fadeInUp" data-wow-delay="0.5s">
-                        <div class="rounded overflow-hidden">
-                            <div class="position-relative overflow-hidden">
-                                <img class="img-fluid w-100" src="img/portfolio-6.jpg" alt="">
-                                <div class="portfolio-overlay">
-                                    <a class="btn btn-square btn-outline-light mx-1" href="img/portfolio-6.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                                    <a class="btn btn-square btn-outline-light mx-1" href=""><i class="fa fa-link"></i></a>
-                                </div>
-                            </div>
-                            <div class="bg-light p-4">
-                                <p class="text-primary fw-medium mb-2">UI / UX Design</p>
-                                <h5 class="lh-base mb-0">Digital Agency Website Design And Development</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Projects End -->
-
-
-        <!-- Testimonial Start -->
-        <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
-            <div class="container py-5 px-lg-5">
-                <p class="section-title text-secondary justify-content-center"><span></span>Testimonial<span></span></p>
-                <h1 class="text-center mb-5">What Say Our Clients!</h1>
-                <div class="owl-carousel testimonial-carousel">
-                    <div class="testimonial-item bg-light rounded my-4">
-                        <p class="fs-5"><i class="fa fa-quote-left fa-4x text-primary mt-n4 me-3"></i>Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit sed stet lorem sit clita duo justo.</p>
-                        <div class="d-flex align-items-center">
-                            <img class="img-fluid flex-shrink-0 rounded-circle" src="img/testimonial-1.jpg" style="width: 65px; height: 65px;">
-                            <div class="ps-4">
-                                <h5 class="mb-1">Client Name</h5>
-                                <span>Profession</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-item bg-light rounded my-4">
-                        <p class="fs-5"><i class="fa fa-quote-left fa-4x text-primary mt-n4 me-3"></i>Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit sed stet lorem sit clita duo justo.</p>
-                        <div class="d-flex align-items-center">
-                            <img class="img-fluid flex-shrink-0 rounded-circle" src="img/testimonial-2.jpg" style="width: 65px; height: 65px;">
-                            <div class="ps-4">
-                                <h5 class="mb-1">Client Name</h5>
-                                <span>Profession</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-item bg-light rounded my-4">
-                        <p class="fs-5"><i class="fa fa-quote-left fa-4x text-primary mt-n4 me-3"></i>Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit sed stet lorem sit clita duo justo.</p>
-                        <div class="d-flex align-items-center">
-                            <img class="img-fluid flex-shrink-0 rounded-circle" src="img/testimonial-3.jpg" style="width: 65px; height: 65px;">
-                            <div class="ps-4">
-                                <h5 class="mb-1">Client Name</h5>
-                                <span>Profession</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Testimonial End -->
-
-
-        <!-- Team Start -->
-        <div class="container-xxl py-5">
-            <div class="container py-5 px-lg-5">
-                <div class="wow fadeInUp" data-wow-delay="0.1s">
-                    <p class="section-title text-secondary justify-content-center"><span></span>Our Team<span></span></p>
-                    <h1 class="text-center mb-5">Our Team Members</h1>
-                </div>
-                <div class="row g-4">
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="team-item bg-light rounded">
-                            <div class="text-center border-bottom p-4">
-                                <img class="img-fluid rounded-circle mb-4" src="img/team-1.jpg" alt="">
-                                <h5>John Doe</h5>
-                                <span>CEO & Founder</span>
-                            </div>
-                            <div class="d-flex justify-content-center p-4">
-                                <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-square mx-1" href=""><i class="fab fa-instagram"></i></a>
-                                <a class="btn btn-square mx-1" href=""><i class="fab fa-linkedin-in"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="team-item bg-light rounded">
-                            <div class="text-center border-bottom p-4">
-                                <img class="img-fluid rounded-circle mb-4" src="img/team-2.jpg" alt="">
-                                <h5>Jessica Brown</h5>
-                                <span>Web Designer</span>
-                            </div>
-                            <div class="d-flex justify-content-center p-4">
-                                <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-square mx-1" href=""><i class="fab fa-instagram"></i></a>
-                                <a class="btn btn-square mx-1" href=""><i class="fab fa-linkedin-in"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                        <div class="team-item bg-light rounded">
-                            <div class="text-center border-bottom p-4">
-                                <img class="img-fluid rounded-circle mb-4" src="img/team-3.jpg" alt="">
-                                <h5>Tony Johnson</h5>
-                                <span>SEO Expert</span>
-                            </div>
-                            <div class="d-flex justify-content-center p-4">
-                                <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-square mx-1" href=""><i class="fab fa-instagram"></i></a>
-                                <a class="btn btn-square mx-1" href=""><i class="fab fa-linkedin-in"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Team End -->
-        
-
-        <!-- Footer Start -->
-        <div class="container-fluid bg-primary text-light footer wow fadeIn" data-wow-delay="0.1s">
-            <div class="container py-5 px-lg-5">
-                <div class="row g-5">
-                    <div class="col-md-6 col-lg-3">
-                        <p class="section-title text-white h5 mb-4">Address<span></span></p>
-                        <p><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</p>
-                        <p><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
-                        <p><i class="fa fa-envelope me-3"></i>info@example.com</p>
-                        <div class="d-flex pt-2">
-                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-instagram"></i></a>
-                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <p class="section-title text-white h5 mb-4">Quick Link<span></span></p>
-                        <a class="btn btn-link" href="">About Us</a>
-                        <a class="btn btn-link" href="">Contact Us</a>
-                        <a class="btn btn-link" href="">Privacy Policy</a>
-                        <a class="btn btn-link" href="">Terms & Condition</a>
-                        <a class="btn btn-link" href="">Career</a>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <p class="section-title text-white h5 mb-4">Gallery<span></span></p>
-                        <div class="row g-2">
-                            <div class="col-4">
-                                <img class="img-fluid" src="img/portfolio-1.jpg" alt="Image">
-                            </div>
-                            <div class="col-4">
-                                <img class="img-fluid" src="img/portfolio-2.jpg" alt="Image">
-                            </div>
-                            <div class="col-4">
-                                <img class="img-fluid" src="img/portfolio-3.jpg" alt="Image">
-                            </div>
-                            <div class="col-4">
-                                <img class="img-fluid" src="img/portfolio-4.jpg" alt="Image">
-                            </div>
-                            <div class="col-4">
-                                <img class="img-fluid" src="img/portfolio-5.jpg" alt="Image">
-                            </div>
-                            <div class="col-4">
-                                <img class="img-fluid" src="img/portfolio-6.jpg" alt="Image">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <p class="section-title text-white h5 mb-4">Newsletter<span></span></p>
-                        <p>Lorem ipsum dolor sit amet elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non vulpu</p>
-                        <div class="position-relative w-100 mt-3">
-                            <input class="form-control border-0 rounded-pill w-100 ps-4 pe-5" type="text" placeholder="Your Email" style="height: 48px;">
-                            <button type="button" class="btn shadow-none position-absolute top-0 end-0 mt-1 me-2"><i class="fa fa-paper-plane text-primary fs-4"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container px-lg-5">
-                <div class="copyright">
-                    <div class="row">
-                        <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                            &copy; <a class="border-bottom" href="#">Your Site Name</a>, All Right Reserved. 
-							
-							<!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-							Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
-                        </div>
-                        <div class="col-md-6 text-center text-md-end">
-                            <div class="footer-menu">
-                                <a href="">Home</a>
-                                <a href="">Cookies</a>
-                                <a href="">Help</a>
-                                <a href="">FQAs</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Footer End -->
-
-
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-secondary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-grid"></div>
+  <div class="hero-dots"></div>
+  <div class="orb orb-a"></div>
+  <div class="orb orb-b"></div>
+  <div class="orb orb-c"></div>
+  <div class="hero-tech">
+    <!-- Monitor silhouette -->
+    <svg width="200" height="155" viewBox="0 0 200 155" style="left:2%;top:16%;opacity:.05" fill="none" stroke="rgba(189,168,224,1)" stroke-width="2.5">
+      <rect x="8" y="8" width="184" height="115" rx="6"/>
+      <rect x="8" y="8" width="184" height="115" rx="6" fill="rgba(189,168,224,.06)"/>
+      <rect x="85" y="125" width="30" height="18" rx="2" fill="rgba(189,168,224,.3)" stroke="none"/>
+      <rect x="55" y="143" width="90" height="5" rx="2" fill="rgba(189,168,224,.25)" stroke="none"/>
+      <line x1="25" y1="35" x2="175" y2="35" stroke="rgba(189,168,224,.45)" stroke-width="1.5"/>
+      <line x1="25" y1="52" x2="120" y2="52" stroke="rgba(189,168,224,.3)" stroke-width="1.5"/>
+      <line x1="25" y1="69" x2="140" y2="69" stroke="rgba(189,168,224,.3)" stroke-width="1.5"/>
+      <line x1="25" y1="86" x2="100" y2="86" stroke="rgba(189,168,224,.3)" stroke-width="1.5"/>
+      <circle cx="22" cy="22" r="4" fill="rgba(189,168,224,.4)" stroke="none"/>
+    </svg>
+    <!-- Phone silhouette -->
+    <svg width="65" height="120" viewBox="0 0 65 120" style="right:5%;top:18%;opacity:.05" fill="none" stroke="rgba(189,168,224,1)" stroke-width="2.5">
+      <rect x="5" y="5" width="55" height="110" rx="10"/>
+      <circle cx="32" cy="108" r="5" fill="rgba(189,168,224,.35)" stroke="none"/>
+      <rect x="20" y="3" width="25" height="5" rx="2.5" fill="rgba(189,168,224,.4)" stroke="none"/>
+      <line x1="14" y1="25" x2="51" y2="25" stroke="rgba(189,168,224,.4)" stroke-width="1.5"/>
+      <line x1="14" y1="42" x2="42" y2="42" stroke="rgba(189,168,224,.25)" stroke-width="1.5"/>
+      <line x1="14" y1="56" x2="48" y2="56" stroke="rgba(189,168,224,.25)" stroke-width="1.5"/>
+    </svg>
+    <!-- Circuit bottom-left -->
+    <svg width="220" height="170" viewBox="0 0 220 170" style="left:0%;bottom:7%;opacity:.045" fill="none" stroke="rgba(189,168,224,1)" stroke-width="1.8">
+      <rect x="25" y="25" width="48" height="48" rx="5" opacity=".55"/>
+      <rect x="145" y="25" width="48" height="48" rx="5" opacity=".55"/>
+      <rect x="85" y="100" width="50" height="45" rx="5" opacity=".55"/>
+      <line x1="73" y1="49" x2="145" y2="49"/>
+      <line x1="49" y1="73" x2="49" y2="100"/><line x1="49" y1="100" x2="85" y2="120"/>
+      <line x1="169" y1="73" x2="169" y2="100"/><line x1="169" y1="100" x2="135" y2="120"/>
+      <circle cx="49" cy="49" r="5" fill="rgba(189,168,224,.5)" stroke="none"/>
+      <circle cx="169" cy="49" r="5" fill="rgba(189,168,224,.5)" stroke="none"/>
+      <circle cx="110" cy="100" r="5" fill="rgba(189,168,224,.5)" stroke="none"/>
+    </svg>
+    <!-- Code brackets bottom-right -->
+    <svg width="160" height="100" viewBox="0 0 160 100" style="right:10%;bottom:18%;opacity:.05" fill="none" stroke="rgba(189,168,224,1)" stroke-width="2.5" stroke-linecap="round">
+      <polyline points="42,12 14,50 42,88"/>
+      <polyline points="118,12 146,50 118,88"/>
+      <line x1="72" y1="4" x2="88" y2="96"/>
+    </svg>
+    <!-- Globe/network top centre-right -->
+    <svg width="110" height="110" viewBox="0 0 110 110" style="right:22%;top:8%;opacity:.04" fill="none" stroke="rgba(189,168,224,1)" stroke-width="1.5">
+      <circle cx="55" cy="55" r="48"/>
+      <ellipse cx="55" cy="55" rx="48" ry="22"/>
+      <ellipse cx="55" cy="55" rx="48" ry="48" transform="rotate(90,55,55)"/>
+      <line x1="7" y1="55" x2="103" y2="55"/>
+      <line x1="55" y1="7" x2="55" y2="103"/>
+    </svg>
+    <!-- Cursor far right -->
+    <svg width="48" height="58" viewBox="0 0 48 58" style="right:1.5%;top:52%;opacity:.06" fill="rgba(189,168,224,.7)">
+      <polygon points="4,4 4,50 17,37 27,56 34,53 24,34 40,34"/>
+    </svg>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">Digital Solutions Agency · Est. 2024</div>
+    <span class="hero-stars">✦ ✦ ✦</span>
+    <h1 class="hero-h1">We bring your<br><em>brand</em> to life</h1>
+    <p class="hero-p">Websites, branding, social media and beyond crafted with intention by three creative women who genuinely care about your business.</p>
+    <div class="hero-btns">
+      <a href="#services" class="btn-primary">See what we do</a>
+      <a href="#contact" class="btn-ghost">Start a project</a>
     </div>
+  </div>
+  <div class="scroll-hint"><div class="scroll-line"></div><span>scroll</span></div>
+</section>
 
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/wow/wow.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/counterup/counterup.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="lib/isotope/isotope.pkgd.min.js"></script>
-    <script src="lib/lightbox/js/lightbox.min.js"></script>
+<!-- ABOUT + TEAM -->
+<section class="about-section section" id="about">
+  <div class="tech-bg">
+    <svg width="130" height="130" viewBox="0 0 130 130" style="right:2%;top:4%;opacity:.04" fill="none" stroke="#9278C8" stroke-width="1.5">
+      <circle cx="65" cy="65" r="55"/><circle cx="65" cy="65" r="35"/><circle cx="65" cy="65" r="12"/>
+      <line x1="10" y1="65" x2="120" y2="65" opacity=".5"/><line x1="65" y1="10" x2="65" y2="120" opacity=".5"/>
+    </svg>
+    <svg width="160" height="100" viewBox="0 0 160 100" style="left:0;bottom:4%;opacity:.035" fill="none" stroke="#9278C8" stroke-width="1.5" stroke-linecap="round">
+      <polyline points="10,80 40,28 72,55 105,18 135,42 152,33"/>
+      <circle cx="40" cy="28" r="4" fill="#9278C8"/><circle cx="72" cy="55" r="4" fill="#9278C8"/>
+      <circle cx="105" cy="18" r="4" fill="#9278C8"/><circle cx="135" cy="42" r="4" fill="#9278C8"/>
+    </svg>
+  </div>
+  <div class="wrap" style="position:relative;z-index:1">
+    <div class="about-intro-grid">
+      <div class="r">
+        <span class="label">Who we are</span>
+        <h2 class="title">Three women.<br><em>One vision.</em></h2>
+        <p class="about-body">We're Haanim, Ni-shaat and Ammara three women who started The Three Stars in 2024, took time to grow our skills and experience, and came back in 2026 ready to do the work we love.</p>
+        <p class="about-body">We care about the businesses we work with. Every project is led by one of us personally, so you always have a real point of contact who knows your project inside out from the first message to final delivery.</p>
+        <p class="about-body">Whether you're a brand looking to level up or a small business just getting started, we'd love to be part of your story.</p>
+      </div>
+      <div class="about-right r rd2">
+        <span class="about-star-mark">✦ ✦ ✦</span>
+        <p class="about-quote">"We don't just deliver work we build things you're genuinely proud of."</p>
+        <p class="about-quote-sub">Communication stays personal, timelines stay clear, and the standard never drops.</p>
+      </div>
+    </div>
+    <div class="team-label-row r">
+      <span class="label" style="display:inline-block">Meet the team</span>
+    </div>
+    <div class="team-grid">
+      <div class="team-card r rd1">
+        <div class="team-avatar">H</div>
+        <h3 class="team-name">Haanim</h3>
+        <div class="team-contacts">
+          <div class="tc-row"><span class="tc-label">Email</span><span>haanim@thethreestars.co.za</span></div>
+          <div class="tc-row"><span class="tc-label">WhatsApp</span><span>+27 XX XXX XXXX</span></div>
+        </div>
+        <a href="#" class="portfolio-link">View portfolio<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4,2 10,2 10,8"/></svg></a>
+      </div>
+      <div class="team-card r rd2">
+        <div class="team-avatar">N</div>
+        <h3 class="team-name">Ni-shaat</h3>
+        <div class="team-contacts">
+          <div class="tc-row"><span class="tc-label">Email</span><span>nishaat@thethreestars.co.za</span></div>
+          <div class="tc-row"><span class="tc-label">WhatsApp</span><span>+27 XX XXX XXXX</span></div>
+        </div>
+        <a href="#" class="portfolio-link">View portfolio<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4,2 10,2 10,8"/></svg></a>
+      </div>
+      <div class="team-card r rd3">
+        <div class="team-avatar">A</div>
+        <h3 class="team-name">Ammara</h3>
+        <div class="team-contacts">
+          <div class="tc-row"><span class="tc-label">Email</span><span>ammara@thethreestars.co.za</span></div>
+          <div class="tc-row"><span class="tc-label">WhatsApp</span><span>+27 XX XXX XXXX</span></div>
+        </div>
+        <a href="#" class="portfolio-link">View portfolio<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4,2 10,2 10,8"/></svg></a>
+      </div>
+    </div>
+    <p class="team-reach-note r">"When you reach out, we'll connect you with the right person for your project and that person stays with you from start to finish."</p>
+  </div>
+</section>
 
-    <!-- Template Javascript -->
-    <script src="js/main.js"></script>
+<!-- SERVICES -->
+<section class="services-section section" id="services">
+  <div class="tech-bg">
+    <svg width="190" height="145" viewBox="0 0 190 145" style="right:1%;top:6%;opacity:.035" fill="none" stroke="#9278C8" stroke-width="1.5">
+      <rect x="8" y="8" width="174" height="120" rx="5"/>
+      <rect x="8" y="8" width="174" height="24" rx="5" fill="#9278C8" opacity=".08"/>
+      <circle cx="24" cy="20" r="4" fill="#9278C8" opacity=".4"/>
+      <circle cx="38" cy="20" r="4" fill="#9278C8" opacity=".4"/>
+      <circle cx="52" cy="20" r="4" fill="#9278C8" opacity=".4"/>
+      <line x1="22" y1="48" x2="168" y2="48" opacity=".4"/>
+      <line x1="22" y1="65" x2="118" y2="65" opacity=".3"/>
+      <line x1="22" y1="82" x2="138" y2="82" opacity=".3"/>
+      <line x1="22" y1="99" x2="98" y2="99" opacity=".3"/>
+    </svg>
+  </div>
+  <div class="wrap" style="position:relative;z-index:1">
+    <span class="label r">What we offer</span>
+    <h2 class="title r">Our <em>services</em></h2>
+    <p class="subtitle r" style="margin-bottom:3.5rem">Everything your brand needs to show up beautifully online and offline.</p>
+    <div class="services-grid">
+      <div class="svc-card r rd1">
+        <div class="svc-icon">🌐</div>
+        <h3 class="svc-title">Web Design &amp; Development</h3>
+        <p class="svc-body">Custom websites built to reflect your brand, convert visitors and grow with your business. We also handle ongoing maintenance so you never have to worry.</p>
+        <span class="svc-tag">Websites · Maintenance · Redesign</span>
+      </div>
+      <div class="svc-card r rd2">
+        <div class="svc-icon">✨</div>
+        <h3 class="svc-title">Branding &amp; Identity</h3>
+        <p class="svc-body">From your logo and colour palette to your full brand identity we create brands that feel cohesive, intentional and uniquely yours.</p>
+        <span class="svc-tag">Branding · Logo · Identity</span>
+      </div>
+      <div class="svc-card r rd3">
+        <div class="svc-icon">🃏</div>
+        <h3 class="svc-title">Print &amp; Digital Design</h3>
+        <p class="svc-body">Business cards, thank you cards, digital occasion cards and more whether for your brand or a special moment, designed with care.</p>
+        <span class="svc-tag">Cards · Print · Digital</span>
+      </div>
+      <div class="svc-card r rd1">
+        <div class="svc-icon">📱</div>
+        <h3 class="svc-title">Social Media Management</h3>
+        <p class="svc-body">Full social media management for brands ready to hand it over strategy, content creation, scheduling and engagement, all handled for you.</p>
+        <span class="svc-tag">Management · Strategy · Content</span>
+      </div>
+      <div class="svc-card r rd2">
+        <div class="svc-icon">🎨</div>
+        <h3 class="svc-title">Social Media Content</h3>
+        <p class="svc-body">Not ready for full management? We create your posts so you always have quality content to share, without the full monthly commitment.</p>
+        <span class="svc-tag">Posts · Graphics · Captions</span>
+      </div>
+      <div class="svc-card r rd3">
+        <div class="svc-icon">⭐</div>
+        <h3 class="svc-title">Business Spotlight Feature</h3>
+        <p class="svc-body">For small businesses we've genuinely connected with a dedicated highlight showcase to give your brand extra visibility. Our way of giving back.</p>
+        <span class="svc-tag free">✦ Completely Free</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNITY -->
+<section class="community-section" id="community">
+  <div class="comm-bg-grid"></div>
+  <div class="comm-bg-dots"></div>
+  <svg width="140" height="140" viewBox="0 0 140 140" style="position:absolute;right:3%;bottom:5%;opacity:.045;pointer-events:none" fill="none" stroke="rgba(189,168,224,1)" stroke-width="1.5">
+    <circle cx="70" cy="70" r="62"/>
+    <ellipse cx="70" cy="70" rx="62" ry="25"/>
+    <ellipse cx="70" cy="70" rx="25" ry="62"/>
+    <line x1="8" y1="70" x2="132" y2="70" opacity=".5"/>
+    <line x1="70" y1="8" x2="70" y2="132" opacity=".5"/>
+  </svg>
+  <div class="wrap">
+    <div class="comm-inner">
+      <div class="comm-left">
+        <span class="label r">Community initiative</span>
+        <h2 class="title r">The <em>Business<br>Spotlight</em></h2>
+        <p class="subtitle r">Our way of giving back to the small businesses we believe in.</p>
+      </div>
+      <div class="comm-right r rd2">
+        <p class="comm-body">For small businesses we've built a genuine connection with, we create a dedicated highlight feature completely free, no strings attached. We use what you share with us about your business to build something that showcases who you are and what you offer, giving you a little extra visibility through our platform and audience.</p>
+        <p class="comm-body">It's our way of lifting others as we grow. Community matters to us, and we want to use what we've built to shine a light on the people around us doing great things.</p>
+        <div class="comm-note">
+          <span class="comm-note-star">✦</span>
+          <span>The spotlight is always free. If you'd like us to create additional branded content or assets for your business beyond the highlight, our standard service rates apply.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="portfolio-section section" id="portfolio">
+  <div class="tech-bg">
+    <svg width="120" height="95" viewBox="0 0 120 95" style="left:1%;bottom:8%;opacity:.04" fill="none" stroke="#9278C8" stroke-width="1.5" stroke-linecap="round">
+      <polygon points="60,8 114,88 6,88"/><polygon points="60,28 96,80 24,80" opacity=".5"/>
+    </svg>
+    <svg width="90" height="90" viewBox="0 0 90 90" style="right:3%;top:10%;opacity:.04" fill="none" stroke="#9278C8" stroke-width="1.5">
+      <rect x="8" y="8" width="74" height="74" rx="5"/>
+      <rect x="22" y="22" width="46" height="46" rx="3"/>
+      <line x1="8" y1="45" x2="22" y2="45"/><line x1="68" y1="45" x2="82" y2="45"/>
+      <line x1="45" y1="8" x2="45" y2="22"/><line x1="45" y1="68" x2="45" y2="82"/>
+    </svg>
+  </div>
+  <div class="wrap" style="position:relative;z-index:1">
+    <span class="label r">Our work</span>
+    <h2 class="title r">A glimpse of what <em>we've built</em></h2>
+    <p class="subtitle r" style="margin-bottom:3.5rem">Every project is as unique as the client behind it.</p>
+    <div class="portfolio-grid">
+      <div class="port-card r rd1"><div class="port-thumb tc-a">✦ ✦ ✦<div class="port-overlay"><span>View project</span></div></div><div class="port-info"><h4>Brand Identity Design</h4><span>Branding · 2025</span></div></div>
+      <div class="port-card r rd2"><div class="port-thumb tc-b">🌐<div class="port-overlay"><span>View project</span></div></div><div class="port-info"><h4>E-commerce Website</h4><span>Web Design · 2025</span></div></div>
+      <div class="port-card r rd3"><div class="port-thumb tc-c">🃏<div class="port-overlay"><span>View project</span></div></div><div class="port-info"><h4>Business Card Suite</h4><span>Print Design · 2025</span></div></div>
+      <div class="port-card r rd1"><div class="port-thumb tc-d">📱<div class="port-overlay"><span>View project</span></div></div><div class="port-info"><h4>Social Media Refresh</h4><span>Content · 2026</span></div></div>
+      <div class="port-card r rd2"><div class="port-thumb tc-e">✨<div class="port-overlay"><span>View project</span></div></div><div class="port-info"><h4>Website Redesign</h4><span>Web Design · 2026</span></div></div>
+      <div class="port-card r rd3"><div class="port-thumb tc-f">🎨<div class="port-overlay"><span>View project</span></div></div><div class="port-info"><h4>Digital Card Collection</h4><span>Digital Design · 2026</span></div></div>
+    </div>
+    <p class="port-more r">More coming soon we're always working on something new.</p>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section section" id="pricing">
+  <div class="tech-bg">
+    <svg width="95" height="175" viewBox="0 0 95 175" style="right:2%;top:8%;opacity:.035" fill="none" stroke="#9278C8" stroke-width="1.5">
+      <rect x="12" y="8" width="71" height="158" rx="12"/>
+      <circle cx="47" cy="157" r="6" fill="#9278C8" opacity=".3"/>
+      <rect x="30" y="5" width="35" height="7" rx="3.5" fill="#9278C8" opacity=".3"/>
+      <line x1="25" y1="36" x2="70" y2="36" opacity=".4"/>
+      <line x1="25" y1="54" x2="58" y2="54" opacity=".3"/>
+      <line x1="25" y1="72" x2="65" y2="72" opacity=".3"/>
+      <line x1="25" y1="90" x2="50" y2="90" opacity=".3"/>
+    </svg>
+  </div>
+  <div class="wrap" style="position:relative;z-index:1">
+    <span class="label r">Investment</span>
+    <h2 class="title r">Simple, honest <em>pricing</em></h2>
+    <p class="subtitle r" style="margin-bottom:2rem">Our pricing is tailored to each project. Reach out and we'll put together a quote for you.</p>
+    <div class="pricing-note r">✦ &nbsp;Pricing is being finalised contact us for a custom quote.</div>
+    <div class="pricing-grid">
+      <div class="pr-card r rd1">
+        <h3 class="pr-name">Branding &amp; Identity</h3>
+        <div class="pr-amt">TBC</div>
+        <span class="pr-sub">Custom quote · based on scope</span>
+        <ul class="pr-items">
+          <li class="pr-item">Logo design</li>
+          <li class="pr-item">Colour palette &amp; typography</li>
+          <li class="pr-item">Brand guidelines</li>
+          <li class="pr-item">Business card design</li>
+        </ul>
+      </div>
+      <div class="pr-card feat r rd2">
+        <span class="feat-badge">Most popular</span>
+        <h3 class="pr-name">Website Package</h3>
+        <div class="pr-amt">TBC</div>
+        <span class="pr-sub">Custom quote · based on scope</span>
+        <ul class="pr-items">
+          <li class="pr-item">Custom website design</li>
+          <li class="pr-item">Mobile responsive build</li>
+          <li class="pr-item">Contact form &amp; SEO basics</li>
+          <li class="pr-item">1 month post-launch support</li>
+          <li class="pr-item">Ongoing maintenance available</li>
+        </ul>
+      </div>
+      <div class="pr-card r rd3">
+        <h3 class="pr-name">Social Media</h3>
+        <div class="pr-amt">TBC</div>
+        <span class="pr-sub">Monthly retainer or per post</span>
+        <ul class="pr-items">
+          <li class="pr-item">Content creation (posts)</li>
+          <li class="pr-item">Full management available</li>
+          <li class="pr-item">Flexible pay for what you need</li>
+          <li class="pr-item">Strategy included in management</li>
+        </ul>
+      </div>
+      <div class="pr-card r rd4">
+        <h3 class="pr-name">Print &amp; Digital Cards</h3>
+        <div class="pr-amt">TBC</div>
+        <span class="pr-sub">Per design · print-ready files</span>
+        <ul class="pr-items">
+          <li class="pr-item">Thank you cards</li>
+          <li class="pr-item">Business cards</li>
+          <li class="pr-item">Digital occasion cards</li>
+          <li class="pr-item">Custom sizing &amp; formats</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews-section section" id="reviews">
+  <div class="tech-bg">
+    <svg width="130" height="95" viewBox="0 0 130 95" style="left:1%;top:8%;opacity:.04" fill="none" stroke="#9278C8" stroke-width="1.5">
+      <path d="M8 78 Q32 8 62 44 Q92 80 118 18" stroke-linecap="round"/>
+      <circle cx="8" cy="78" r="4" fill="#9278C8" opacity=".5"/>
+      <circle cx="62" cy="44" r="4" fill="#9278C8" opacity=".5"/>
+      <circle cx="118" cy="18" r="4" fill="#9278C8" opacity=".5"/>
+    </svg>
+  </div>
+  <div class="wrap" style="position:relative;z-index:1">
+    <span class="label r">Client love</span>
+    <h2 class="title r">What our clients <em>say</em></h2>
+    <p class="subtitle r" style="margin-bottom:3.5rem">We let the work and the people we've worked with speak for themselves.</p>
+    <div class="reviews-grid" id="reviewsGrid">
+      <div class="rv-card r rd1">
+        <div class="rv-stars">★★★★★</div>
+        <p class="rv-text">"Working with The Three Stars was seamless from start to finish. Our website turned out better than we imagined."</p>
+        <div class="rv-author"><div class="rv-avatar">SM</div><div><p class="rv-name">Sarah M.</p><p class="rv-biz">Small business owner</p></div></div>
+      </div>
+      <div class="rv-card r rd2">
+        <div class="rv-stars">★★★★★</div>
+        <p class="rv-text">"They really understood our brand and brought it to life in a way we couldn't have done ourselves. Highly recommend."</p>
+        <div class="rv-author"><div class="rv-avatar">TK</div><div><p class="rv-name">Tariq K.</p><p class="rv-biz">Retail brand founder</p></div></div>
+      </div>
+      <div class="rv-card r rd3">
+        <div class="rv-stars">★★★★★</div>
+        <p class="rv-text">"The personal approach made all the difference. I always knew exactly who I was dealing with and what was happening."</p>
+        <div class="rv-author"><div class="rv-avatar">LA</div><div><p class="rv-name">Leila A.</p><p class="rv-biz">Freelance photographer</p></div></div>
+      </div>
+    </div>
+    <div class="rv-form-box r">
+      <h3>Share your experience ✦</h3>
+      <p>Worked with us? We'd love to hear from you.</p>
+      <div class="star-picker" id="starPicker">
+        <button class="sp-btn" data-v="1">★</button>
+        <button class="sp-btn" data-v="2">★</button>
+        <button class="sp-btn" data-v="3">★</button>
+        <button class="sp-btn" data-v="4">★</button>
+        <button class="sp-btn" data-v="5">★</button>
+      </div>
+      <div class="fr">
+        <div class="fg"><label class="fl">Your name</label><input class="fc" id="rvName" type="text" placeholder="e.g. Aisha Moosa"></div>
+        <div class="fg"><label class="fl">Business / role</label><input class="fc" id="rvBiz" type="text" placeholder="e.g. Boutique owner"></div>
+      </div>
+      <div class="fg"><label class="fl">Your review</label><textarea class="fc" id="rvText" placeholder="Tell us about your experience..."></textarea></div>
+      <button class="sub-btn" id="rvSubmit">Submit review ✦</button>
+      <div class="success-note" id="rvOk">✦ Thank you your review has been added.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section section" id="contact">
+  <div class="tech-bg">
+    <svg width="105" height="105" viewBox="0 0 105 105" style="right:2%;bottom:5%;opacity:.04" fill="none" stroke="#9278C8" stroke-width="1.5">
+      <rect x="8" y="20" width="89" height="65" rx="5"/>
+      <polyline points="8,20 52,60 97,20"/>
+      <line x1="8" y1="85" x2="38" y2="52" opacity=".5"/>
+      <line x1="97" y1="85" x2="67" y2="52" opacity=".5"/>
+    </svg>
+  </div>
+  <div class="wrap" style="position:relative;z-index:1">
+    <div class="contact-grid">
+      <div class="r">
+        <span class="label">Get in touch</span>
+        <h2 class="title">Let's build something <em>great</em></h2>
+        <p style="font-size:.92rem;color:var(--tmuted);font-weight:300;line-height:1.85;margin-bottom:2.5rem">Have a project in mind? Fill in the form and we'll get back to you within 48 hours.</p>
+        <div class="ci-block">
+          <h3>Based in Cape Town</h3><p>Serving clients locally and across South Africa.</p>
+          <h3>General enquiries</h3><p>hello@thethreestars.co.za</p>
+          <h3>Response time</h3><p>24–48 hours on business days.</p>
+          <h3>Follow us</h3><p>@thethreestars.agency</p>
+        </div>
+      </div>
+      <div class="r rd2">
+        <div class="fr">
+          <div class="fg"><label class="fl">Your name</label><input class="fc" id="cName" type="text" placeholder="e.g. Fatima Hassan"></div>
+          <div class="fg"><label class="fl">Business name</label><input class="fc" type="text" placeholder="Optional"></div>
+        </div>
+        <div class="fg"><label class="fl">Email address</label><input class="fc" id="cEmail" type="email" placeholder="you@example.com"></div>
+        <div class="fg"><label class="fl">Phone / WhatsApp</label><input class="fc" type="tel" placeholder="+27 XX XXX XXXX (optional)"></div>
+        <div class="fg">
+          <label class="fl">What can we help with?</label>
+          <select class="fc">
+            <option value="">Select a service...</option>
+            <option>Web Design &amp; Development</option>
+            <option>Website Maintenance / Redesign</option>
+            <option>Branding &amp; Identity</option>
+            <option>Print &amp; Digital Cards</option>
+            <option>Social Media Management</option>
+            <option>Social Media Content / Posts</option>
+            <option>Business Spotlight Feature (Free)</option>
+            <option>Something else / not sure yet</option>
+          </select>
+        </div>
+        <div class="fg"><label class="fl">Tell us about your project</label><textarea class="fc" id="cMsg" placeholder="Give us a feel for what you have in mind the more detail the better!"></textarea></div>
+        <button class="sub-btn" id="cSubmit">Send your message ✦</button>
+        <div class="success-note" id="cOk">✦ Message received we'll be in touch within 48 hours.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid-bg"></div>
+  <div style="position:relative;z-index:1">
+    <p class="footer-stars">✦ ✦ ✦</p>
+    <p class="footer-name">The Three Stars</p>
+    <p class="footer-tag">Digital Solutions Agency · Cape Town, South Africa</p>
+    <nav class="footer-nav">
+      <a href="#about">About</a><a href="#services">Services</a><a href="#portfolio">Work</a>
+      <a href="#pricing">Pricing</a><a href="#reviews">Reviews</a><a href="#contact">Contact</a>
+    </nav>
+    <hr class="footer-hr">
+    <p class="footer-copy">© 2026 The Three Stars Digital Solutions Agency. All rights reserved.</p>
+  </div>
+</footer>
+<button class="btt" id="btt" aria-label="Back to top">↑</button>
+
+<script>
+// NAV SCROLL
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled',scrollY>50);
+  document.getElementById('btt').classList.toggle('show',scrollY>500);
+},{passive:true});
+
+// DRAWER
+const ham=document.getElementById('ham'),drawer=document.getElementById('drawer'),overlay=document.getElementById('overlay');
+function tog(o){ham.classList.toggle('open',o);drawer.classList.toggle('open',o);overlay.classList.toggle('open',o);document.body.style.overflow=o?'hidden':'';}
+ham.addEventListener('click',()=>tog(!drawer.classList.contains('open')));
+overlay.addEventListener('click',()=>tog(false));
+drawer.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>tog(false)));
+
+// BACK TO TOP
+document.getElementById('btt').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+// REVEAL
+const ro=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');ro.unobserve(e.target);}});},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.r').forEach(el=>ro.observe(el));
+
+// CURSOR SPARKLE
+const chars=['✦','✧','⋆','·'];let lt=0;
+document.addEventListener('mousemove',e=>{
+  if(Date.now()-lt<100)return;lt=Date.now();
+  const s=document.createElement('span');
+  s.className='cstar';
+  s.textContent=chars[Math.floor(Math.random()*chars.length)];
+  s.style.cssText=`left:${e.clientX}px;top:${e.clientY}px;font-size:${9+Math.random()*9}px`;
+  document.body.appendChild(s);
+  setTimeout(()=>s.remove(),900);
+},{passive:true});
+
+// STAR RATING
+let rating=0;
+const spBtns=document.querySelectorAll('.sp-btn');
+spBtns.forEach(btn=>{
+  btn.addEventListener('mouseenter',()=>spBtns.forEach(b=>b.classList.toggle('on',+b.dataset.v<=+btn.dataset.v)));
+  btn.addEventListener('mouseleave',()=>spBtns.forEach(b=>b.classList.toggle('on',+b.dataset.v<=rating)));
+  btn.addEventListener('click',()=>{rating=+btn.dataset.v;spBtns.forEach(b=>b.classList.toggle('on',+b.dataset.v<=rating));});
+});
+
+// SUBMIT REVIEW
+document.getElementById('rvSubmit').addEventListener('click',()=>{
+  const name=document.getElementById('rvName').value.trim();
+  const biz=document.getElementById('rvBiz').value.trim();
+  const text=document.getElementById('rvText').value.trim();
+  if(!name||!text||!rating){alert('Please add your name, a rating and a review.');return;}
+  const inits=name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+  const stars='★'.repeat(rating)+'☆'.repeat(5-rating);
+  const card=document.createElement('div');
+  card.className='rv-card';
+  card.style.animation='fadeUp .5s ease both';
+  card.innerHTML=`<div class="rv-stars">${stars}</div><p class="rv-text">"${text}"</p><div class="rv-author"><div class="rv-avatar">${inits}</div><div><p class="rv-name">${name}</p><p class="rv-biz">${biz||'Client'}</p></div></div>`;
+  document.getElementById('reviewsGrid').appendChild(card);
+  document.getElementById('rvName').value='';
+  document.getElementById('rvBiz').value='';
+  document.getElementById('rvText').value='';
+  rating=0;spBtns.forEach(b=>b.classList.remove('on'));
+  const ok=document.getElementById('rvOk');ok.style.display='block';
+  setTimeout(()=>ok.style.display='none',4500);
+});
+
+// SUBMIT CONTACT
+document.getElementById('cSubmit').addEventListener('click',()=>{
+  const name=document.getElementById('cName').value.trim();
+  const email=document.getElementById('cEmail').value.trim();
+  const msg=document.getElementById('cMsg').value.trim();
+  if(!name||!email||!msg){alert('Please fill in your name, email and message.');return;}
+  const ok=document.getElementById('cOk');ok.style.display='block';
+  document.getElementById('cName').value='';
+  document.getElementById('cEmail').value='';
+  document.getElementById('cMsg').value='';
+  setTimeout(()=>ok.style.display='none',5000);
+});
+
+// ACTIVE NAV
+const sections=document.querySelectorAll('section[id]');
+const navAs=document.querySelectorAll('.nav-links a');
+const so=new IntersectionObserver(es=>{
+  es.forEach(e=>{if(e.isIntersecting)navAs.forEach(a=>{const act=a.getAttribute('href')==='#'+e.target.id;a.style.color=act?'var(--plum)':'';a.style.fontWeight=act?'500':'';});});
+},{threshold:0.45});
+sections.forEach(s=>so.observe(s));
+</script>
 </body>
-
 </html>

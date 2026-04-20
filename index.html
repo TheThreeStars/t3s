@@ -804,6 +804,13 @@ footer{background:var(--plum);padding:clamp(4rem,8vw,5.5rem) clamp(1.2rem,5vw,3r
           <input type="hidden" name="_next" value="https://t3s-ten.vercel.app/thank-you.html">
           <button type="submit" class="sub-btn">Send your message ✦</button>
         </form>
+        <script>
+          document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            setTimeout(() => {
+              window.location.href = 'thank-you.html';
+            }, 1000);
+          });
+        </script>
         <div class="success-note" id="cOk">✦ Message received we'll be in touch within 48 hours.</div>
       </div>
     </div>

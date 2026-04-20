@@ -190,6 +190,22 @@ nav.scrolled{background:#f0edf7;box-shadow:0 1px 30px rgba(23,13,39,.08)}
 .port-info h4{font-size:.91rem;font-weight:500;color:var(--plum);margin-bottom:.22rem}
 .port-info span{font-size:.74rem;color:var(--tmuted);font-weight:300;margin-bottom:1rem}
 .port-more{text-align:center;margin-top:2.5rem;font-family:var(--fd);font-style:italic;font-size:1rem;color:var(--tmuted)}
+.port-card-design{border-radius:20px;overflow:hidden;border:1px solid rgba(146,120,200,.13);background:white;cursor:pointer;transition:transform .28s var(--ease),box-shadow .28s;height:clamp(150px,18vw,200px)}
+.port-card-design:hover{transform:translateY(-7px);box-shadow:0 18px 54px rgba(23,13,39,.12)}
+.port-card-design img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* DESIGN LIGHTBOX */
+.design-lightbox{position:fixed;inset:0;background:rgba(23,13,39,.92);z-index:1000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(4px)}
+.design-lightbox.active{opacity:1;pointer-events:all}
+.lightbox-content{position:relative;max-width:90vw;max-height:90vh;display:flex;align-items:center;justify-content:center}
+.lightbox-img{max-width:100%;max-height:90vh;object-fit:contain;border-radius:12px}
+.lightbox-close{position:absolute;top:20px;right:20px;width:40px;height:40px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s,border-color .2s;color:white;font-size:24px}
+.lightbox-close:hover{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.4)}
+.lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);width:50px;height:50px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s,border-color .2s;color:white;font-size:20px}
+.lightbox-nav:hover{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.4)}
+.lightbox-prev{left:20px}
+.lightbox-next{right:20px}
+.design-img{cursor:pointer;transition:transform .2s}
 
 /* PRICING */
 .pricing-section{background:var(--off)}
@@ -577,10 +593,43 @@ footer{background:var(--plum);padding:clamp(4rem,8vw,5.5rem) clamp(1.2rem,5vw,3r
       <div class="port-card r rd3" data-category="all"><div class="port-thumb tc-c"><i class="fas fa-utensils port-icon"></i></div><div class="port-info"><h4>The Olive Cafe</h4><span>Restaurant in Cavendish Square offering a wide variety of food</span><a href="https://the-olive-cafe.netlify.app/" class="portfolio-link" target="_blank" rel="noopener noreferrer">View website<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4,2 10,2 10,8"/></svg></a></div></div>
       <div class="port-card r rd1" data-category="all"><div class="port-thumb tc-d"><i class="fas fa-cookie port-icon"></i></div><div class="port-info"><h4>Sugar Bakez</h4><span>Small business specializing in brownies with event catering services</span><a href="https://sugarbakez.netlify.app/" class="portfolio-link" target="_blank" rel="noopener noreferrer">View website<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4,2 10,2 10,8"/></svg></a></div></div>
       <div class="port-card r rd2" data-category="all"><div class="port-thumb tc-e"><i class="fas fa-cake-candles port-icon"></i></div><div class="port-info"><h4>Baked by A</h4><span>Small cake business baking fresh, delicious cakes to order</span><a href="https://baked-by-a.vercel.app/" class="portfolio-link" target="_blank" rel="noopener noreferrer">View website<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4,2 10,2 10,8"/></svg></a></div></div>
+      <div class="port-card-design r rd1" data-category="designs"><img src="img/designs/1.png" alt="Design" class="design-img"></div>
+      <div class="port-card-design r rd2" data-category="designs"><img src="img/designs/2.png" alt="Design" class="design-img"></div>
+      <div class="port-card-design r rd3" data-category="designs"><img src="img/designs/3.png" alt="Design" class="design-img"></div>
+      <div class="port-card-design r rd1" data-category="designs"><img src="img/designs/duo1.png" alt="Design" class="design-img"></div>
+      <div class="port-card-design r rd2" data-category="designs"><img src="img/designs/duo3.png" alt="Design" class="design-img"></div>
+      <div class="port-card-design r rd3" data-category="designs"><img src="img/designs/eid1.png" alt="Design" class="design-img"></div>
+      <div class="port-card-design r rd1" data-category="designs"><img src="img/designs/eid2.png" alt="Design" class="design-img"></div>
+      <div class="port-card-design r rd2" data-category="designs"><img src="img/designs/eid3.png" alt="Design" class="design-img"></div>
+      <div class="port-card-design r rd3" data-category="designs"><img src="img/designs/eid4.png" alt="Design" class="design-img"></div>
+      <div class="port-card-design r rd1" data-category="designs"><img src="img/designs/eid5.png" alt="Design" class="design-img"></div>
+      <div class="port-card-design r rd2" data-category="designs"><img src="img/designs/eid6.png" alt="Design" class="design-img"></div>
+      <div class="port-card-design r rd3" data-category="designs"><img src="img/designs/eid7.png" alt="Design" class="design-img"></div>
+      <div class="port-card-design r rd1" data-category="designs"><img src="img/designs/eid8.png" alt="Design" class="design-img"></div>
+      <div class="port-card-design r rd2" data-category="designs"><img src="img/designs/eid9.png" alt="Design" class="design-img"></div>
+      <div class="port-card-design r rd3" data-category="designs"><img src="img/designs/eid10.png" alt="Design" class="design-img"></div>
+      <div class="port-card-design r rd1" data-category="designs"><img src="img/designs/eid12.png" alt="Design" class="design-img"></div>
+      <div class="port-card-design r rd2" data-category="designs"><img src="img/designs/kimchi1.png" alt="Design" class="design-img"></div>
+      <div class="port-card-design r rd3" data-category="designs"><img src="img/designs/kimchi2.png" alt="Design" class="design-img"></div>
+      <div class="port-card-design r rd1" data-category="designs"><img src="img/designs/kimchi3.png" alt="Design" class="design-img"></div>
+      <div class="port-card-design r rd2" data-category="designs"><img src="img/designs/Pink Cream Illustration Valentine's Day Instagram Post.png" alt="Design" class="design-img"></div>
+      <div class="port-card-design r rd3" data-category="designs"><img src="img/designs/sb1.png" alt="Design" class="design-img"></div>
+      <div class="port-card-design r rd1" data-category="designs"><img src="img/designs/sb2.png" alt="Design" class="design-img"></div>
+      <div class="port-card-design r rd2" data-category="designs"><img src="img/designs/Untitled design.png" alt="Design" class="design-img"></div>
     </div>
     <p class="port-more r">More coming soon we're always working on something new.</p>
   </div>
 </section>
+
+<!-- DESIGN LIGHTBOX -->
+<div class="design-lightbox" id="designLightbox">
+  <div class="lightbox-content">
+    <img src="" alt="Design" class="lightbox-img" id="lightboxImg">
+    <div class="lightbox-close" id="closeLightbox">×</div>
+    <div class="lightbox-nav lightbox-prev" id="prevDesign">‹</div>
+    <div class="lightbox-nav lightbox-next" id="nextDesign">›</div>
+  </div>
+</div>
 
 <!-- PRICING -->
 <section class="pricing-section section" id="pricing">
@@ -859,21 +908,78 @@ sections.forEach(s=>so.observe(s));
 
 // PORTFOLIO FILTER
 const portFilterBtns=document.querySelectorAll('.port-filter-btn');
-const portCards=document.querySelectorAll('.port-card');
+const portCards=document.querySelectorAll('.port-card, .port-card-design');
+
+function applyFilter(filter){
+  portCards.forEach(card=>{
+    const category=card.dataset.category;
+    if(filter===category){
+      card.style.display='';
+    }else{
+      card.style.display='none';
+    }
+  });
+}
+
 portFilterBtns.forEach(btn=>{
   btn.addEventListener('click',()=>{
     portFilterBtns.forEach(b=>b.classList.remove('active'));
     btn.classList.add('active');
     const filter=btn.dataset.filter;
-    portCards.forEach(card=>{
-      const category=card.dataset.category||'all';
-      if(filter==='all'||category===filter){
-        card.style.display='';
-      }else{
-        card.style.display='none';
-      }
-    });
+    applyFilter(filter);
   });
+});
+
+// Initialize filter on page load
+applyFilter('all');
+
+// DESIGN LIGHTBOX
+const designLightbox=document.getElementById('designLightbox');
+const lightboxImg=document.getElementById('lightboxImg');
+const closeLightbox=document.getElementById('closeLightbox');
+const prevDesign=document.getElementById('prevDesign');
+const nextDesign=document.getElementById('nextDesign');
+let currentDesignIndex=0;
+let designImages=[];
+
+function updateDesignImages(){
+  designImages=Array.from(document.querySelectorAll('.port-card-design img')).map(img=>({
+    src:img.src
+  }));
+}
+
+document.querySelectorAll('.port-card-design').forEach(card=>{
+  card.addEventListener('click',function(e){
+    const img=this.querySelector('img');
+    e.preventDefault();
+    updateDesignImages();
+    const currentSrc=img.src;
+    currentDesignIndex=designImages.findIndex(d=>d.src===currentSrc);
+    showLightbox(currentDesignIndex);
+  });
+});
+
+function showLightbox(index){
+  if(designImages.length===0)return;
+  currentDesignIndex=(index+designImages.length)%designImages.length;
+  lightboxImg.src=designImages[currentDesignIndex].src;
+  designLightbox.classList.add('active');
+}
+
+closeLightbox.addEventListener('click',()=>{
+  designLightbox.classList.remove('active');
+});
+
+prevDesign.addEventListener('click',()=>{
+  showLightbox(currentDesignIndex-1);
+});
+
+nextDesign.addEventListener('click',()=>{
+  showLightbox(currentDesignIndex+1);
+});
+
+designLightbox.addEventListener('click',e=>{
+  if(e.target===designLightbox)designLightbox.classList.remove('active');
 });
 </script>
 </body>

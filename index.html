@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Three Stars – Digital Solutions Agency</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -125,6 +127,7 @@ nav.scrolled{background:#f0edf7;box-shadow:0 1px 30px rgba(23,13,39,.08)}
 .tc-row{display:flex;align-items:flex-start;gap:.5rem;font-size:.8rem;font-weight:300;color:var(--tmuted);line-height:1.4}
 .tc-label{font-size:.63rem;letter-spacing:.12em;text-transform:uppercase;color:var(--lav);font-weight:500;white-space:nowrap;padding-top:.08rem;flex-shrink:0}
 .portfolio-link{display:inline-flex;align-items:center;gap:.4rem;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--lav);font-weight:500;border:1px solid rgba(146,120,200,.25);padding:.4rem .9rem;border-radius:100px;transition:background .2s,border-color .2s,color .2s;margin-top:auto;width:fit-content}
+.port-info .portfolio-link{margin-top:auto;align-self:flex-start}
 .portfolio-link:hover{background:var(--lav);color:white;border-color:var(--lav)}
 .portfolio-link svg{width:11px;height:11px;flex-shrink:0}
 .team-reach-note{max-width:600px;margin:2.5rem auto 0;text-align:center;font-family:var(--fd);font-style:italic;font-size:1rem;color:var(--tmuted);line-height:1.7}
@@ -160,23 +163,32 @@ nav.scrolled{background:#f0edf7;box-shadow:0 1px 30px rgba(23,13,39,.08)}
 
 /* PORTFOLIO */
 .portfolio-section{background:var(--blush)}
+.port-filter{display:flex;justify-content:center;gap:2rem;margin-bottom:3rem;align-items:center}
+.port-filter-btn{background:none;border:none;font-size:.88rem;letter-spacing:.14em;text-transform:uppercase;color:var(--tmuted);font-weight:500;cursor:pointer;padding:.5rem 0;position:relative;transition:color .25s}
+.port-filter-btn::after{content:'';position:absolute;bottom:-8px;left:0;right:0;height:2px;background:var(--lav);transform:scaleX(0);transition:transform .25s var(--ease)}
+.port-filter-btn.active{color:var(--plum)}
+.port-filter-btn.active::after{transform:scaleX(1)}
+.port-filter-divider{width:1px;height:24px;background:rgba(146,120,200,.25)}
 .portfolio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
-.port-card{border-radius:20px;overflow:hidden;border:1px solid rgba(146,120,200,.13);background:white;cursor:pointer;transition:transform .28s var(--ease),box-shadow .28s}
+.port-card{border-radius:20px;overflow:hidden;border:1px solid rgba(146,120,200,.13);background:white;cursor:pointer;transition:transform .28s var(--ease),box-shadow .28s;display:flex;flex-direction:column;height:100%}
 .port-card:hover{transform:translateY(-7px);box-shadow:0 18px 54px rgba(23,13,39,.12)}
 .port-thumb{height:clamp(150px,18vw,200px);display:flex;align-items:center;justify-content:center;font-size:clamp(1.8rem,3vw,2.4rem);letter-spacing:6px;position:relative;overflow:hidden}
+.port-icon{width:clamp(48px,8vw,64px);height:clamp(48px,8vw,64px);color:var(--lav);transition:color .3s;font-size:clamp(48px,8vw,64px)}
+.port-card:hover .port-icon{color:var(--plum)}
 .port-overlay{position:absolute;inset:0;background:rgba(23,13,39,0);display:flex;align-items:center;justify-content:center;transition:background .3s}
 .port-card:hover .port-overlay{background:rgba(23,13,39,.32)}
-.port-overlay span{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:white;font-weight:500;opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s}
-.port-card:hover .port-overlay span{opacity:1;transform:none}
+.port-overlay span{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--lav);font-weight:500;border:1px solid rgba(146,120,200,.25);padding:.4rem .9rem;border-radius:100px;opacity:1;transform:none;transition:background .2s,border-color .2s,color .2s;display:inline-flex;align-items:center;gap:.4rem}
+.port-overlay span svg{width:11px;height:11px;flex-shrink:0}
+.port-card:hover .port-overlay span{background:var(--lav);color:white;border-color:var(--lav)}
 .tc-a{background:var(--plum);color:var(--lav-lt)}
 .tc-b{background:var(--lav-pale);color:var(--plum-mid)}
 .tc-c{background:var(--cream);color:var(--plum)}
 .tc-d{background:var(--plum-mid);color:var(--lav-pale)}
 .tc-e{background:#EDE8F8;color:var(--plum-mid)}
 .tc-f{background:#F5EBD8;color:#6A4A20}
-.port-info{padding:1.1rem 1.4rem}
+.port-info{padding:1.4rem;display:flex;flex-direction:column;flex:1}
 .port-info h4{font-size:.91rem;font-weight:500;color:var(--plum);margin-bottom:.22rem}
-.port-info span{font-size:.74rem;color:var(--tmuted);font-weight:300}
+.port-info span{font-size:.74rem;color:var(--tmuted);font-weight:300;margin-bottom:1rem}
 .port-more{text-align:center;margin-top:2.5rem;font-family:var(--fd);font-style:italic;font-size:1rem;color:var(--tmuted)}
 
 /* PRICING */
@@ -554,13 +566,17 @@ footer{background:var(--plum);padding:clamp(4rem,8vw,5.5rem) clamp(1.2rem,5vw,3r
     <span class="label r">Our work</span>
     <h2 class="title r">A glimpse of what <em>we've built</em></h2>
     <p class="subtitle r" style="margin-bottom:3.5rem">Every project is as unique as the client behind it.</p>
+    <div class="port-filter r">
+      <button class="port-filter-btn active" data-filter="all">Projects</button>
+      <div class="port-filter-divider"></div>
+      <button class="port-filter-btn" data-filter="designs">Designs</button>
+    </div>
     <div class="portfolio-grid">
-      <div class="port-card r rd1"><div class="port-thumb tc-a">✦ ✦ ✦<div class="port-overlay"><span>View project</span></div></div><div class="port-info"><h4>Brand Identity Design</h4><span>Branding · 2025</span></div></div>
-      <div class="port-card r rd2"><div class="port-thumb tc-b">🌐<div class="port-overlay"><span>View project</span></div></div><div class="port-info"><h4>E-commerce Website</h4><span>Web Design · 2025</span></div></div>
-      <div class="port-card r rd3"><div class="port-thumb tc-c">🃏<div class="port-overlay"><span>View project</span></div></div><div class="port-info"><h4>Business Card Suite</h4><span>Print Design · 2025</span></div></div>
-      <div class="port-card r rd1"><div class="port-thumb tc-d">📱<div class="port-overlay"><span>View project</span></div></div><div class="port-info"><h4>Social Media Refresh</h4><span>Content · 2026</span></div></div>
-      <div class="port-card r rd2"><div class="port-thumb tc-e">✨<div class="port-overlay"><span>View project</span></div></div><div class="port-info"><h4>Website Redesign</h4><span>Web Design · 2026</span></div></div>
-      <div class="port-card r rd3"><div class="port-thumb tc-f">🎨<div class="port-overlay"><span>View project</span></div></div><div class="port-info"><h4>Digital Card Collection</h4><span>Digital Design · 2026</span></div></div>
+      <div class="port-card r rd1" data-category="all"><div class="port-thumb tc-a"><i class="fas fa-plane port-icon"></i></div><div class="port-info"><h4>Cape Rhino</h4><span>Travel and tours agency helping people explore South Africa</span><a href="https://caperhino.netlify.app/" class="portfolio-link" target="_blank" rel="noopener noreferrer">View website<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4,2 10,2 10,8"/></svg></a></div></div>
+      <div class="port-card r rd2" data-category="all"><div class="port-thumb tc-b"><i class="fas fa-users port-icon"></i></div><div class="port-info"><h4>Women with Vision</h4><span>NPO supporting less fortunate communities with various programs</span><a href="https://womenwithvision.netlify.app/home" class="portfolio-link" target="_blank" rel="noopener noreferrer">View website<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4,2 10,2 10,8"/></svg></a></div></div>
+      <div class="port-card r rd3" data-category="all"><div class="port-thumb tc-c"><i class="fas fa-utensils port-icon"></i></div><div class="port-info"><h4>The Olive Cafe</h4><span>Restaurant in Cavendish Square offering a wide variety of food</span><a href="https://the-olive-cafe.netlify.app/" class="portfolio-link" target="_blank" rel="noopener noreferrer">View website<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4,2 10,2 10,8"/></svg></a></div></div>
+      <div class="port-card r rd1" data-category="all"><div class="port-thumb tc-d"><i class="fas fa-cookie port-icon"></i></div><div class="port-info"><h4>Sugar Bakez</h4><span>Small business specializing in brownies with event catering services</span><a href="https://sugarbakez.netlify.app/" class="portfolio-link" target="_blank" rel="noopener noreferrer">View website<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4,2 10,2 10,8"/></svg></a></div></div>
+      <div class="port-card r rd2" data-category="all"><div class="port-thumb tc-e"><i class="fas fa-cake-candles port-icon"></i></div><div class="port-info"><h4>Baked by A</h4><span>Small cake business baking fresh, delicious cakes to order</span><a href="https://baked-by-a.vercel.app/" class="portfolio-link" target="_blank" rel="noopener noreferrer">View website<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4,2 10,2 10,8"/></svg></a></div></div>
     </div>
     <p class="port-more r">More coming soon we're always working on something new.</p>
   </div>
@@ -840,6 +856,25 @@ const so=new IntersectionObserver(es=>{
   es.forEach(e=>{if(e.isIntersecting)navAs.forEach(a=>{const act=a.getAttribute('href')==='#'+e.target.id;a.style.color=act?'var(--plum)':'';a.style.fontWeight=act?'500':'';});});
 },{threshold:0.45});
 sections.forEach(s=>so.observe(s));
+
+// PORTFOLIO FILTER
+const portFilterBtns=document.querySelectorAll('.port-filter-btn');
+const portCards=document.querySelectorAll('.port-card');
+portFilterBtns.forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    portFilterBtns.forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter=btn.dataset.filter;
+    portCards.forEach(card=>{
+      const category=card.dataset.category||'all';
+      if(filter==='all'||category===filter){
+        card.style.display='';
+      }else{
+        card.style.display='none';
+      }
+    });
+  });
+});
 </script>
 </body>
 </html>

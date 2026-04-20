@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thank You – The Three Stars</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --plum:#170D27;--plum-mid:#2E1A4A;--plum-soft:#4A2E72;
+  --lav:#9278C8;--lav-lt:#BDA8E0;--lav-pale:#EDE5F6;
+  --blush:#F7F3FC;--cream:#FAF8F5;--off:#FDFCFA;
+  --gold:#B8894E;--gold-lt:#E2C99A;
+  --td:#1E1030;--tm:#3D2860;--tmuted:#7A6890;
+  --fd:'Cormorant Garamond',Georgia,serif;
+  --fb:'Jost',system-ui,sans-serif;
+  --ease:cubic-bezier(0.22,1,0.36,1);
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--fb);background:var(--off);color:var(--td);line-height:1.7;overflow-x:hidden;font-size:16px}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;font-family:var(--fb)}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--blush)}
+::-webkit-scrollbar-thumb{background:var(--lav-lt);border-radius:99px}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:600;height:110px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(1.2rem,4vw,3.5rem);background:#f0edf7;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(146,120,200,.14);transition:background .35s,box-shadow .35s}
+.nav-logo{font-family:var(--fd);font-size:1.2rem;font-weight:600;color:var(--plum);letter-spacing:.05em;display:flex;align-items:center;justify-content:center;gap:9px;white-space:nowrap}.nav-logo img{height:90px;width:auto;display:block}
+.nav-links{display:flex;align-items:center;gap:2.2rem}
+.nav-links a{font-size:.72rem;font-weight:400;letter-spacing:.14em;text-transform:uppercase;color:var(--tmuted);transition:color .2s;white-space:nowrap}
+.nav-links a:hover{color:var(--plum)}
+.nav-cta{background:var(--plum);color:var(--lav-pale)!important;padding:.52rem 1.4rem;border-radius:100px;font-size:.7rem!important;letter-spacing:.14em!important;transition:background .2s,transform .15s!important}
+.nav-cta:hover{background:var(--plum-soft)!important;transform:translateY(-1px)}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:6px;z-index:700}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--plum);transition:transform .3s,opacity .3s;border-radius:2px}
+
+/* UTILS */
+.wrap{max-width:1100px;margin:0 auto;padding:0 clamp(1.2rem,5vw,2.5rem)}
+.section{padding:clamp(5rem,10vw,9rem) 0;position:relative}
+.label{display:block;font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;color:var(--lav);font-weight:500;margin-bottom:.7rem}
+.title{font-family:var(--fd);font-size:clamp(2rem,4.5vw,3.6rem);font-weight:300;color:var(--plum);line-height:1.1;margin-bottom:1rem}
+.title em{font-style:italic;color:var(--lav)}
+.subtitle{font-size:.92rem;color:var(--tmuted);max-width:480px;line-height:1.85;font-weight:300}
+.btn-primary{display:inline-block;background:var(--lav);color:white;padding:.95rem 2.5rem;border-radius:100px;font-size:.77rem;letter-spacing:.13em;text-transform:uppercase;font-weight:500;border:none;transition:background .2s,transform .15s,box-shadow .2s}
+.btn-primary:hover{background:var(--plum-soft);transform:translateY(-2px);box-shadow:0 10px 28px rgba(146,120,200,.3)}
+
+/* REVEAL */
+.r{opacity:0;transform:translateY(30px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.r.on{opacity:1;transform:none}
+
+/* TECH BG */
+.tech-bg{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.tech-bg svg{position:absolute}
+
+/* THANK YOU PAGE */
+.thank-you-hero{min-height:100svh;background:var(--plum);display:flex;align-items:center;justify-content:center;text-align:center;padding:clamp(7rem,14vw,10rem) clamp(1.2rem,5vw,2.5rem) clamp(5rem,10vw,7rem);position:relative;overflow:hidden;margin-top:110px}
+.thank-you-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(146,120,200,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(146,120,200,.055) 1px,transparent 1px);background-size:60px 60px;animation:gDrift 22s linear infinite}
+@keyframes gDrift{0%{background-position:0 0}100%{background-position:60px 60px}}
+.thank-you-dots{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(146,120,200,.18) 1.2px,transparent 1.2px);background-size:60px 60px;background-position:30px 30px}
+.thank-you-content{position:relative;z-index:2;max-width:600px}
+.thank-you-icon{font-size:5rem;color:var(--lav-lt);margin-bottom:2rem;animation:bounceIn .8s var(--ease) both}
+@keyframes bounceIn{0%{opacity:0;transform:scale(.6) translateY(-20px)}100%{opacity:1;transform:scale(1) translateY(0)}}
+.thank-you-h1{font-family:var(--fd);font-size:clamp(2.4rem,7vw,4.2rem);font-weight:300;line-height:1.1;color:var(--cream);letter-spacing:-.015em;margin-bottom:1.2rem;animation:fadeUp 1s .1s var(--ease) both}
+.thank-you-p{font-size:clamp(.95rem,1.5vw,1.05rem);color:rgba(189,168,224,.85);max-width:480px;margin:0 auto 3rem;line-height:1.9;font-weight:300;animation:fadeUp 1s .2s var(--ease) both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.thank-you-details{background:rgba(255,255,255,.08);border:1px solid rgba(189,168,224,.2);border-radius:16px;padding:2rem;margin:2.5rem 0;text-align:left;animation:fadeUp 1s .3s var(--ease) both;backdrop-filter:blur(8px)}
+.thank-you-details h3{font-family:var(--fd);font-size:1.1rem;color:var(--lav-lt);margin-bottom:.8rem}
+.thank-you-details p{font-size:.9rem;color:rgba(189,168,224,.75);line-height:1.7}
+.thank-you-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;animation:fadeUp 1s .4s var(--ease) both}
+
+/* FOOTER */
+footer{background:var(--plum);color:rgba(189,168,224,.6);padding:3rem clamp(1.2rem,5vw,2.5rem);font-size:.82rem;text-align:center;border-top:1px solid rgba(189,168,224,.1)}
+footer a{color:var(--lav-lt);transition:color .2s}
+footer a:hover{color:white}
+
+@media(max-width:900px){
+  .hamburger{display:flex}
+  nav{height:80px}
+  .nav-logo img{height:60px}
+}
+@media(max-width:600px){
+  nav{height:80px}
+  .nav-logo img{height:60px}
+  .thank-you-h1{font-size:2.2rem}
+  .thank-you-p{font-size:.9rem}
+  .thank-you-btns{flex-direction:column}
+  .btn-primary{width:100%}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <img src="img/logo.png" alt="The Three Stars Logo">
+    <span class="logo-stars">★★★</span>
+  </div>
+  <div class="nav-links">
+    <a href="index.html#services">Services</a>
+    <a href="index.html#pricing">Pricing</a>
+    <a href="index.html#reviews">Reviews</a>
+    <a href="index.html">Portfolio</a>
+  </div>
+  <a href="index.html#contact" class="nav-cta">Get in touch</a>
+</nav>
+
+<!-- THANK YOU -->
+<section class="thank-you-hero">
+  <div class="thank-you-grid"></div>
+  <div class="thank-you-dots"></div>
+  <div class="thank-you-content">
+    <div class="thank-you-icon">✦</div>
+    <h1 class="thank-you-h1">Thank you!</h1>
+    <p class="thank-you-p">We've received your message and appreciate you reaching out. Our team will review it and get back to you within 48 hours.</p>
+    
+    <div class="thank-you-details">
+      <h3>What happens next?</h3>
+      <p>We'll carefully review your project requirements and get back to you with next steps, timeline, and if applicable, a tailored quote. If you have any urgent questions, feel free to reach out directly at <strong>thethr33stars3@gmail.com</strong></p>
+    </div>
+
+    <div class="thank-you-details">
+      <h3>In the meantime</h3>
+      <p>Check out our <strong><a href="index.html" style="color:var(--lav-lt)">portfolio</a></strong> to see some of our recent work, or follow us on <strong><a href="#" style="color:var(--lav-lt)">the.thr33.stars</a></strong> for design inspiration and updates.</p>
+    </div>
+
+    <div class="thank-you-btns">
+      <a href="index.html" class="btn-primary">Back to home</a>
+      <a href="index.html#portfolio" class="btn-primary" style="background:rgba(255,255,255,.15);border:1px solid rgba(189,168,224,.3)">View portfolio</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>&copy; 2026 The Three Stars. All rights reserved. <a href="#">Privacy policy</a> · <a href="#">Terms</a></p>
+</footer>
+
+</body>
+</html>

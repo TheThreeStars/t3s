@@ -230,7 +230,7 @@ nav.scrolled{background:#f0edf7;box-shadow:0 1px 30px rgba(23,13,39,.08)}
 
 /* REVIEWS */
 .reviews-section{background:var(--blush)}
-.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-bottom:4rem}
+.reviews-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.6rem;margin-bottom:4rem}
 .rv-card{background:white;border:1px solid rgba(146,120,200,.13);border-radius:22px;padding:2.2rem;transition:transform .24s var(--ease),box-shadow .24s}
 .rv-card:hover{transform:translateY(-5px);box-shadow:0 12px 40px rgba(23,13,39,.08)}
 .rv-stars{font-size:.88rem;letter-spacing:3px;color:var(--gold);margin-bottom:1rem}
@@ -725,18 +725,13 @@ footer{background:var(--plum);padding:clamp(4rem,8vw,5.5rem) clamp(1.2rem,5vw,3r
     <div class="reviews-grid" id="reviewsGrid">
       <div class="rv-card r rd1">
         <div class="rv-stars">★★★★★</div>
-        <p class="rv-text">"Working with The Three Stars was seamless from start to finish. Our website turned out better than we imagined."</p>
-        <div class="rv-author"><div class="rv-avatar">SM</div><div><p class="rv-name">Sarah M.</p><p class="rv-biz">Small business owner</p></div></div>
+        <p class="rv-text">"I just want to give a huge thanks to you, because of your video I've gotten so many good reviews and it has been a success with regulars and new customers. I really do appreciate the time and effort you've put into the video and it has really made my 2024. Happy new year and may you have a great one. Once again THANK YOU."</p>
+        <div class="rv-author"><div class="rv-avatar">BA</div><div><p class="rv-name">Baked by A</p><p class="rv-biz">Cake business</p></div></div>
       </div>
       <div class="rv-card r rd2">
         <div class="rv-stars">★★★★★</div>
-        <p class="rv-text">"They really understood our brand and brought it to life in a way we couldn't have done ourselves. Highly recommend."</p>
-        <div class="rv-author"><div class="rv-avatar">TK</div><div><p class="rv-name">Tariq K.</p><p class="rv-biz">Retail brand founder</p></div></div>
-      </div>
-      <div class="rv-card r rd3">
-        <div class="rv-stars">★★★★★</div>
-        <p class="rv-text">"The personal approach made all the difference. I always knew exactly who I was dealing with and what was happening."</p>
-        <div class="rv-author"><div class="rv-avatar">LA</div><div><p class="rv-name">Leila A.</p><p class="rv-biz">Freelance photographer</p></div></div>
+        <p class="rv-text">"Shukran so much for being so amazing to work with and creating something I would've never thought I'd have. Not only will this help elevate my business, but it will be of great help to new customers. You have been so helpful, patient and kind. I appreciate you explaining things and updating me frequently, and especially being so willing to change things around to create something specifically for me. I am so obsessed with my website!"</p>
+        <div class="rv-author"><div class="rv-avatar">SB</div><div><p class="rv-name">Sugar Bakez</p><p class="rv-biz">Brownie & catering business</p></div></div>
       </div>
     </div>
     <div class="rv-form-box r">
@@ -778,34 +773,37 @@ footer{background:var(--plum);padding:clamp(4rem,8vw,5.5rem) clamp(1.2rem,5vw,3r
         <p style="font-size:.92rem;color:var(--tmuted);font-weight:300;line-height:1.85;margin-bottom:2.5rem">Have a project in mind? Fill in the form and we'll get back to you within 48 hours.</p>
         <div class="ci-block">
           <h3>Based in Cape Town</h3><p>Serving clients locally and across South Africa.</p>
-          <h3>General enquiries</h3><p>hello@thethreestars.co.za</p>
+          <h3>General enquiries</h3><p>thethr33stars3@gmail.com</p>
           <h3>Response time</h3><p>24–48 hours on business days.</p>
-          <h3>Follow us</h3><p>@thethreestars.agency</p>
+          <h3>Follow us</h3><p>the.thr33.stars</p>
         </div>
       </div>
       <div class="r rd2">
-        <div class="fr">
-          <div class="fg"><label class="fl">Your name</label><input class="fc" id="cName" type="text" placeholder="e.g. Fatima Hassan"></div>
-          <div class="fg"><label class="fl">Business name</label><input class="fc" type="text" placeholder="Optional"></div>
-        </div>
-        <div class="fg"><label class="fl">Email address</label><input class="fc" id="cEmail" type="email" placeholder="you@example.com"></div>
-        <div class="fg"><label class="fl">Phone / WhatsApp</label><input class="fc" type="tel" placeholder="+27 XX XXX XXXX (optional)"></div>
-        <div class="fg">
-          <label class="fl">What can we help with?</label>
-          <select class="fc">
-            <option value="">Select a service...</option>
-            <option>Web Design &amp; Development</option>
-            <option>Website Maintenance / Redesign</option>
-            <option>Branding &amp; Identity</option>
-            <option>Print &amp; Digital Cards</option>
-            <option>Social Media Management</option>
-            <option>Social Media Content / Posts</option>
-            <option>Business Spotlight Feature (Free)</option>
-            <option>Something else / not sure yet</option>
-          </select>
-        </div>
-        <div class="fg"><label class="fl">Tell us about your project</label><textarea class="fc" id="cMsg" placeholder="Give us a feel for what you have in mind the more detail the better!"></textarea></div>
-        <button class="sub-btn" id="cSubmit">Send your message ✦</button>
+        <form action="https://formspree.io/f/xzdyvaeg" method="POST" class="contact-form">
+          <div class="fr">
+            <div class="fg"><label class="fl">Your name</label><input class="fc" name="name" type="text" placeholder="e.g. Fatima Hassan" required></div>
+            <div class="fg"><label class="fl">Business name</label><input class="fc" name="business" type="text" placeholder="Optional"></div>
+          </div>
+          <div class="fg"><label class="fl">Email address</label><input class="fc" name="email" type="email" placeholder="you@example.com" required></div>
+          <div class="fg"><label class="fl">Phone / WhatsApp</label><input class="fc" name="phone" type="tel" placeholder="+27 XX XXX XXXX (optional)"></div>
+          <div class="fg">
+            <label class="fl">What can we help with?</label>
+            <select class="fc" name="service" required>
+              <option value="">Select a service...</option>
+              <option>Web Design &amp; Development</option>
+              <option>Website Maintenance / Redesign</option>
+              <option>Branding &amp; Identity</option>
+              <option>Print &amp; Digital Cards</option>
+              <option>Social Media Management</option>
+              <option>Social Media Content / Posts</option>
+              <option>Business Spotlight Feature (Free)</option>
+              <option>Something else / not sure yet</option>
+            </select>
+          </div>
+          <div class="fg"><label class="fl">Tell us about your project</label><textarea class="fc" name="message" placeholder="Give us a feel for what you have in mind the more detail the better!" required></textarea></div>
+          <input type="hidden" name="_next" value="https://t3s-ten.vercel.app/thank-you.html">
+          <button type="submit" class="sub-btn">Send your message ✦</button>
+        </form>
         <div class="success-note" id="cOk">✦ Message received we'll be in touch within 48 hours.</div>
       </div>
     </div>
@@ -893,18 +891,6 @@ document.getElementById('rvSubmit').addEventListener('click',()=>{
   setTimeout(()=>ok.style.display='none',4500);
 });
 
-// SUBMIT CONTACT
-document.getElementById('cSubmit').addEventListener('click',()=>{
-  const name=document.getElementById('cName').value.trim();
-  const email=document.getElementById('cEmail').value.trim();
-  const msg=document.getElementById('cMsg').value.trim();
-  if(!name||!email||!msg){alert('Please fill in your name, email and message.');return;}
-  const ok=document.getElementById('cOk');ok.style.display='block';
-  document.getElementById('cName').value='';
-  document.getElementById('cEmail').value='';
-  document.getElementById('cMsg').value='';
-  setTimeout(()=>ok.style.display='none',5000);
-});
 
 // ACTIVE NAV
 const sections=document.querySelectorAll('section[id]');

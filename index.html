@@ -210,21 +210,22 @@ nav.scrolled{background:#f0edf7;box-shadow:0 1px 30px rgba(23,13,39,.08)}
 /* PRICING */
 .pricing-section{background:var(--off)}
 .pricing-note{display:inline-flex;align-items:center;gap:.6rem;background:var(--blush);border:1px solid rgba(146,120,200,.18);border-radius:12px;padding:.9rem 1.6rem;font-size:.84rem;color:var(--tm);font-weight:300;margin-bottom:3rem}
-.pricing-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;align-items:start}
-.pr-card{background:white;border:1px solid rgba(146,120,200,.13);border-radius:22px;padding:2rem 1.7rem;display:flex;flex-direction:column;transition:transform .22s,border-color .22s,box-shadow .22s}
-.pr-card:hover{transform:translateY(-5px);border-color:rgba(146,120,200,.3);box-shadow:0 10px 36px rgba(23,13,39,.08)}
-.pr-card.feat{background:var(--plum);border-color:var(--plum)}
-.pr-card.feat .pr-name{color:var(--cream)}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem;align-items:stretch}
+.pr-card{background:white;border:1.5px solid rgba(146,120,200,.15);border-radius:24px;padding:2.4rem;display:flex;flex-direction:column;transition:transform .24s,border-color .24s,box-shadow .24s;box-shadow:0 2px 8px rgba(23,13,39,.03)}
+.pr-card:hover{transform:translateY(-6px);border-color:rgba(146,120,200,.35);box-shadow:0 12px 40px rgba(23,13,39,.1)}
+.pr-card.feat{background:var(--plum);border-color:var(--plum);box-shadow:0 12px 48px rgba(23,13,39,.15);position:relative;margin-top:.8rem}
+.pr-card.feat .pr-name{color:var(--cream);margin-top:.2rem}
 .pr-card.feat .pr-amt{color:var(--lav-lt)}
 .pr-card.feat .pr-sub{color:rgba(189,168,224,.6)}
-.pr-card.feat .pr-item{color:rgba(189,168,224,.8);border-color:rgba(189,168,224,.1)}
+.pr-card.feat .pr-items{border-top-color:rgba(189,168,224,.15)}
+.pr-card.feat .pr-item{color:rgba(189,168,224,.8);border-color:rgba(189,168,224,.12)}
 .pr-card.feat .pr-item::before{color:var(--lav-lt)}
-.feat-badge{display:inline-block;background:var(--gold);color:white;font-size:.63rem;letter-spacing:.1em;text-transform:uppercase;padding:.22rem .75rem;border-radius:100px;margin-bottom:.8rem;font-weight:500}
-.pr-name{font-family:var(--fd);font-size:1.18rem;font-weight:500;color:var(--plum);margin-bottom:.38rem}
-.pr-amt{font-family:var(--fd);font-size:2rem;font-weight:300;color:var(--plum);line-height:1;margin-bottom:.18rem}
+.feat-badge{display:inline-flex;align-items:center;justify-content:center;background:var(--gold);color:white;font-size:.68rem;letter-spacing:.13em;text-transform:uppercase;padding:.35rem 1.2rem;border-radius:100px;font-weight:600;position:absolute;top:-14px;left:50%;transform:translateX(-50%);box-shadow:0 4px 12px rgba(184,137,78,.25);border:2px solid white;z-index:10}
+.pr-name{font-family:var(--fd);font-size:1.26rem;font-weight:500;color:var(--plum);margin-bottom:.6rem;line-height:1.3}
+.pr-amt{font-family:var(--fd);font-size:2.2rem;font-weight:300;color:var(--lav);line-height:1.1;margin-bottom:1rem;letter-spacing:-.015em}
 .pr-sub{font-size:.72rem;color:var(--tmuted);font-weight:300;display:block;margin-bottom:1.4rem}
-.pr-items{list-style:none;margin-top:auto}
-.pr-item{font-size:.81rem;color:var(--tm);padding:.44rem 0;border-bottom:1px solid rgba(146,120,200,.08);display:flex;align-items:flex-start;gap:.45rem;font-weight:300;line-height:1.5}
+.pr-items{list-style:none;margin-top:1.6rem;padding-top:1.6rem;border-top:1px solid rgba(146,120,200,.1)}
+.pr-item{font-size:.82rem;color:var(--tmuted);padding:.52rem 0;border-bottom:1px solid rgba(146,120,200,.08);display:flex;align-items:flex-start;gap:.55rem;font-weight:300;line-height:1.6}
 .pr-item::before{content:'✦';color:var(--lav);font-size:.58rem;margin-top:.25rem;flex-shrink:0}
 
 /* REVIEWS */
@@ -648,52 +649,59 @@ footer{background:var(--plum);padding:clamp(4rem,8vw,5.5rem) clamp(1.2rem,5vw,3r
     <span class="label r">Investment</span>
     <h2 class="title r">Simple, honest <em>pricing</em></h2>
     <p class="subtitle r" style="margin-bottom:2rem">Our pricing is tailored to each project. Reach out and we'll put together a quote for you.</p>
-    <div class="pricing-note r">✦ &nbsp;Pricing is being finalised contact us for a custom quote.</div>
     <div class="pricing-grid">
       <div class="pr-card r rd1">
-        <h3 class="pr-name">Branding &amp; Identity</h3>
-        <div class="pr-amt">TBC</div>
-        <span class="pr-sub">Custom quote · based on scope</span>
+        <h3 class="pr-name">1–3 Page Website</h3>
+        <div class="pr-amt">R 3,500 – R 5,000</div>
         <ul class="pr-items">
-          <li class="pr-item">Logo design</li>
-          <li class="pr-item">Colour palette &amp; typography</li>
-          <li class="pr-item">Brand guidelines</li>
-          <li class="pr-item">Business card design</li>
+          <li class="pr-item">Mobile responsive design</li>
+          <li class="pr-item">Basic SEO setup</li>
+          <li class="pr-item">Contact form</li>
+          <li class="pr-item">Clean UI</li>
         </ul>
       </div>
-      <div class="pr-card feat r rd2">
+      <div class="pr-card r rd2">
+        <h3 class="pr-name">4–6 Pages</h3>
+        <div class="pr-amt">R 6,000 – R 9,000</div>
+        <ul class="pr-items">
+          <li class="pr-item">Everything in Basic</li>
+          <li class="pr-item">Better design + UX</li>
+          <li class="pr-item">On-page SEO</li>
+          <li class="pr-item">Speed optimisation</li>
+          <li class="pr-item">Google indexing setup</li>
+        </ul>
+      </div>
+      <div class="pr-card feat r rd3">
         <span class="feat-badge">Most popular</span>
-        <h3 class="pr-name">Website Package</h3>
-        <div class="pr-amt">TBC</div>
-        <span class="pr-sub">Custom quote · based on scope</span>
+        <h3 class="pr-name">7–10+ Pages</h3>
+        <div class="pr-amt">R 10,000 – R 18,000</div>
         <ul class="pr-items">
-          <li class="pr-item">Custom website design</li>
-          <li class="pr-item">Mobile responsive build</li>
-          <li class="pr-item">Contact form &amp; SEO basics</li>
-          <li class="pr-item">1 month post-launch support</li>
-          <li class="pr-item">Ongoing maintenance available</li>
-        </ul>
-      </div>
-      <div class="pr-card r rd3">
-        <h3 class="pr-name">Social Media</h3>
-        <div class="pr-amt">TBC</div>
-        <span class="pr-sub">Monthly retainer or per post</span>
-        <ul class="pr-items">
-          <li class="pr-item">Content creation (posts)</li>
-          <li class="pr-item">Full management available</li>
-          <li class="pr-item">Flexible pay for what you need</li>
-          <li class="pr-item">Strategy included in management</li>
+          <li class="pr-item">Custom design (not template vibes)</li>
+          <li class="pr-item">Advanced SEO setup</li>
+          <li class="pr-item">Blog / CMS functionality</li>
+          <li class="pr-item">Integrations (booking, email, etc.)</li>
+          <li class="pr-item">Conversion-focused design</li>
         </ul>
       </div>
       <div class="pr-card r rd4">
-        <h3 class="pr-name">Print &amp; Digital Cards</h3>
-        <div class="pr-amt">TBC</div>
-        <span class="pr-sub">Per design · print-ready files</span>
+        <h3 class="pr-name">Online Store</h3>
+        <div class="pr-amt">R 12,000 – R 25,000+</div>
         <ul class="pr-items">
-          <li class="pr-item">Thank you cards</li>
-          <li class="pr-item">Business cards</li>
-          <li class="pr-item">Digital occasion cards</li>
-          <li class="pr-item">Custom sizing &amp; formats</li>
+          <li class="pr-item">Product setup</li>
+          <li class="pr-item">Payment gateway integration</li>
+          <li class="pr-item">Cart + checkout</li>
+          <li class="pr-item">Basic SEO</li>
+          <li class="pr-item">Training for client</li>
+        </ul>
+      </div>
+      <div class="pr-card r rd1">
+        <h3 class="pr-name">Monthly Maintenance</h3>
+        <div class="pr-amt">R 800 – R 2,000 <span style="font-size:.8rem">p/m</span></div>
+        <ul class="pr-items">
+          <li class="pr-item">Updates</li>
+          <li class="pr-item">Fixes</li>
+          <li class="pr-item">Backups</li>
+          <li class="pr-item">Small edits</li>
         </ul>
       </div>
     </div>

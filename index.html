@@ -275,13 +275,22 @@ nav.scrolled{box-shadow:0 2px 30px var(--shadow)}
 ═══════════════════════════════════════════ */
 .pricing-section{background:var(--bg2);position:relative;overflow:hidden}
 .pricing-3d{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.pricing-filters{display:flex;flex-wrap:wrap;gap:0.8rem;margin-bottom:2.5rem;justify-content:center;align-items:center}
+.filter-btn{
+  background:var(--card-bg);border:1.5px solid var(--border);border-radius:100px;
+  padding:0.7rem 1.4rem;font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--text2);font-weight:500;cursor:pointer;transition:all 0.3s cubic-bezier(0.22,1,.36,1);
+  font-family:'DM Sans',sans-serif;white-space:nowrap;
+}
+.filter-btn:hover{border-color:var(--lav);color:var(--lav)}
+.filter-btn.active{background:var(--lav);color:white;border-color:var(--lav);box-shadow:0 8px 24px rgba(146,120,200,.35)}
 .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem;align-items:stretch}
 .pr-card{
   background:var(--card-bg);border:1.5px solid var(--border);border-radius:24px;
   padding:2.4rem;display:flex;flex-direction:column;
-  transition:transform .4s cubic-bezier(0.22,1,.36,1),border-color .3s,box-shadow .4s;
+  transition:transform .4s cubic-bezier(0.22,1,.36,1),border-color .3s,box-shadow .4s,opacity .3s;
   box-shadow:0 4px 20px var(--shadow);
-  transform-style:preserve-3d;position:relative;overflow:hidden;
+  transform-style:preserve-3d;position:relative;overflow:hidden;opacity:1;
 }
 .pr-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(146,120,200,.05) 0%,transparent 60%);pointer-events:none}
 .pr-card:hover{transform:translateY(-10px) rotateX(3deg) scale(1.01);border-color:var(--border2);box-shadow:0 28px 70px var(--shadow),0 0 40px var(--glow)}
@@ -385,6 +394,8 @@ footer::before{content:'';position:absolute;top:-200px;left:50%;transform:transl
   .comm-inner{grid-template-columns:1fr}.comm-right{transform:none!important}
   .reviews-grid{grid-template-columns:1fr 1fr}
   .contact-grid{grid-template-columns:1fr}
+  .pricing-filters{gap:0.6rem}
+  .filter-btn{padding:0.6rem 1rem;font-size:0.7rem}
 }
 @media(max-width:600px){
   #cursor{display:none}
@@ -394,6 +405,8 @@ footer::before{content:'';position:absolute;top:-200px;left:50%;transform:transl
   .team-grid{grid-template-columns:1fr;max-width:360px;margin:0 auto}
   .services-grid{grid-template-columns:1fr}
   .pricing-grid{grid-template-columns:1fr}
+  .pricing-filters{flex-direction:column;align-items:stretch;gap:0.5rem}
+  .filter-btn{width:100%;padding:0.7rem 1rem;font-size:0.7rem}
   .portfolio-grid{grid-template-columns:1fr}
   .reviews-grid{grid-template-columns:1fr}
   .fr{grid-template-columns:1fr}
@@ -487,7 +500,7 @@ footer::before{content:'';position:absolute;top:-200px;left:50%;transform:transl
         <div class="team-avatar"><img src="img/WhatsApp Image 2026-04-19 at 16.59.48.jpeg" alt="Ni-shaat" onerror="this.style.display='none';this.parentElement.innerHTML='N'"></div>
         <h3 class="team-name">Ni-shaat</h3>
         <div class="team-contacts">
-          <div class="tc-row"><span class="tc-label">Email</span><span>nishaat@thethreestars.co.za</span></div>
+          <div class="tc-row"><span class="tc-label">Email</span><span>nishthethreesars@gmail.com</span></div>
           <div class="tc-row"><span class="tc-label">WhatsApp</span><span>+27 XX XXX XXXX</span></div>
         </div>
         <a href="https://nishdigitalportfolio.vercel.app/" class="portfolio-link" target="_blank" rel="noopener noreferrer">View portfolio<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="10" x2="10" y2="2"/><polyline points="4,2 10,2 10,8"/></svg></a>
@@ -645,8 +658,19 @@ footer::before{content:'';position:absolute;top:-200px;left:50%;transform:transl
     <span class="label r">Investment</span>
     <h2 class="title r">Simple, honest <em>pricing</em></h2>
     <p class="subtitle r" style="margin-bottom:3rem">Our pricing is tailored to each project. Reach out and we'll put together a quote for you.</p>
-    <div class="pricing-grid">
-      <div class="pr-card r rd1">
+    
+    <!-- Pricing Filter Buttons -->
+    <div class="pricing-filters r">
+      <button class="filter-btn active" data-service="web-design">Web Design & Development</button>
+      <button class="filter-btn" data-service="branding">Branding & Identity</button>
+      <button class="filter-btn" data-service="print-design">Print & Digital Design</button>
+      <button class="filter-btn" data-service="social-media">Social Media Management</button>
+      <button class="filter-btn" data-service="social-content">Social Media Content</button>
+    </div>
+
+    <div class="pricing-grid" id="pricingGrid">
+      <!-- WEB DESIGN & DEVELOPMENT -->
+      <div class="pr-card r rd1" data-service="web-design">
         <h3 class="pr-name">1–3 Page Website</h3>
         <div class="pr-amt">R 3,500 – R 5,000</div>
         <ul class="pr-items">
@@ -656,7 +680,7 @@ footer::before{content:'';position:absolute;top:-200px;left:50%;transform:transl
           <li class="pr-item">Clean UI</li>
         </ul>
       </div>
-      <div class="pr-card r rd2">
+      <div class="pr-card r rd2" data-service="web-design">
         <h3 class="pr-name">4–6 Pages</h3>
         <div class="pr-amt">R 6,000 – R 9,000</div>
         <ul class="pr-items">
@@ -667,7 +691,7 @@ footer::before{content:'';position:absolute;top:-200px;left:50%;transform:transl
           <li class="pr-item">Google indexing setup</li>
         </ul>
       </div>
-      <div class="pr-card feat r rd3">
+      <div class="pr-card feat r rd3" data-service="web-design">
         <span class="feat-badge">Most popular</span>
         <h3 class="pr-name">7–10+ Pages</h3>
         <div class="pr-amt">R 10,000 – R 18,000</div>
@@ -679,7 +703,7 @@ footer::before{content:'';position:absolute;top:-200px;left:50%;transform:transl
           <li class="pr-item">Conversion-focused design</li>
         </ul>
       </div>
-      <div class="pr-card r rd4">
+      <div class="pr-card r rd4" data-service="web-design">
         <h3 class="pr-name">Online Store</h3>
         <div class="pr-amt">R 12,000 – R 25,000+</div>
         <ul class="pr-items">
@@ -690,7 +714,7 @@ footer::before{content:'';position:absolute;top:-200px;left:50%;transform:transl
           <li class="pr-item">Training for client</li>
         </ul>
       </div>
-      <div class="pr-card r rd5">
+      <div class="pr-card r rd5" data-service="web-design">
         <h3 class="pr-name">Monthly Maintenance</h3>
         <div class="pr-amt">R 800 – R 2,000 <span style="font-size:.8rem">p/m</span></div>
         <ul class="pr-items">
@@ -698,6 +722,221 @@ footer::before{content:'';position:absolute;top:-200px;left:50%;transform:transl
           <li class="pr-item">Backups</li>
           <li class="pr-item">Small edits</li>
           <li class="pr-item">Peace of mind</li>
+        </ul>
+      </div>
+
+      <!-- SOCIAL MEDIA MANAGEMENT -->
+      <div class="pr-card r rd1" data-service="social-media" style="display:none">
+        <h3 class="pr-name">Basic Package</h3>
+        <span class="pr-sub">Social Media Management</span>
+        <div class="pr-amt">R 1,800 <span style="font-size:.8rem">p/m</span></div>
+        <ul class="pr-items">
+          <li class="pr-item">2 social media platforms</li>
+          <li class="pr-item">4 posts per month</li>
+          <li class="pr-item">Basic community engagement</li>
+          <li class="pr-item">Monthly reports</li>
+        </ul>
+      </div>
+      <div class="pr-card r rd2" data-service="social-media" style="display:none">
+        <h3 class="pr-name">Standard Package</h3>
+        <span class="pr-sub">Social Media Management</span>
+        <div class="pr-amt">R 3,000 <span style="font-size:.8rem">p/m</span></div>
+        <ul class="pr-items">
+          <li class="pr-item">3 social media platforms</li>
+          <li class="pr-item">8 posts per month</li>
+          <li class="pr-item">Active community management</li>
+          <li class="pr-item">Content calendar</li>
+          <li class="pr-item">Monthly analytics report</li>
+        </ul>
+      </div>
+      <div class="pr-card feat r rd3" data-service="social-media" style="display:none">
+        <span class="feat-badge">Most popular</span>
+        <h3 class="pr-name">Premium Package</h3>
+        <span class="pr-sub">Social Media Management</span>
+        <div class="pr-amt">R 5,500 <span style="font-size:.8rem">p/m</span></div>
+        <ul class="pr-items">
+          <li class="pr-item">All social media platforms</li>
+          <li class="pr-item">15 posts per month</li>
+          <li class="pr-item">24/7 community engagement</li>
+          <li class="pr-item">Influencer collaboration setup</li>
+          <li class="pr-item">Weekly performance tracking</li>
+        </ul>
+      </div>
+
+      <!-- WEB DESIGN & DEVELOPMENT: SEO -->
+      <div class="pr-card r rd1" data-service="web-design" style="display:none">
+        <h3 class="pr-name">Basic SEO Setup</h3>
+        <div class="pr-amt">R 1,500</div>
+        <ul class="pr-items">
+          <li class="pr-item">Keyword research</li>
+          <li class="pr-item">On-page SEO optimization</li>
+          <li class="pr-item">Meta tags setup</li>
+          <li class="pr-item">Initial competitor analysis</li>
+        </ul>
+      </div>
+      <div class="pr-card r rd2" data-service="web-design" style="display:none">
+        <h3 class="pr-name">Advanced SEO</h3>
+        <div class="pr-amt">R 3,500 – R 5,000</div>
+        <ul class="pr-items">
+          <li class="pr-item">Technical SEO audit</li>
+          <li class="pr-item">Advanced keyword strategy</li>
+          <li class="pr-item">Backlink analysis</li>
+          <li class="pr-item">Schema markup implementation</li>
+          <li class="pr-item">Comprehensive competitor analysis</li>
+        </ul>
+      </div>
+      <div class="pr-card feat r rd3" data-service="web-design" style="display:none">
+        <span class="feat-badge">Most popular</span>
+        <h3 class="pr-name">Monthly SEO Maintenance</h3>
+        <div class="pr-amt">R 2,500 <span style="font-size:.8rem">p/m</span></div>
+        <ul class="pr-items">
+          <li class="pr-item">Ongoing optimization</li>
+          <li class="pr-item">Monthly keyword tracking</li>
+          <li class="pr-item">Content optimization</li>
+          <li class="pr-item">Link building</li>
+          <li class="pr-item">Detailed monthly reports</li>
+        </ul>
+      </div>
+
+      <!-- SOCIAL MEDIA MANAGEMENT: DIGITAL MARKETING -->
+      <div class="pr-card r rd1" data-service="social-media" style="display:none">
+        <h3 class="pr-name">Basic Package</h3>
+        <span class="pr-sub">Digital Marketing</span>
+        <div class="pr-amt">R 2,000</div>
+        <ul class="pr-items">
+          <li class="pr-item">Google Ads setup</li>
+          <li class="pr-item">Campaign creation</li>
+          <li class="pr-item">Initial optimization</li>
+          <li class="pr-item">Weekly monitoring</li>
+        </ul>
+      </div>
+      <div class="pr-card r rd2" data-service="social-media" style="display:none">
+        <h3 class="pr-name">Full Package</h3>
+        <span class="pr-sub">Digital Marketing</span>
+        <div class="pr-amt">R 4,500 – R 6,000</div>
+        <ul class="pr-items">
+          <li class="pr-item">Multi-channel campaigns</li>
+          <li class="pr-item">Facebook & Instagram ads</li>
+          <li class="pr-item">Advanced targeting</li>
+          <li class="pr-item">A/B testing</li>
+          <li class="pr-item">Detailed analytics</li>
+        </ul>
+      </div>
+      <div class="pr-card feat r rd3" data-service="social-media" style="display:none">
+        <span class="feat-badge">Most popular</span>
+        <h3 class="pr-name">Ongoing Monthly Management</h3>
+        <span class="pr-sub">Digital Marketing</span>
+        <div class="pr-amt">R 3,000 <span style="font-size:.8rem">p/m</span></div>
+        <ul class="pr-items">
+          <li class="pr-item">Continuous campaign management</li>
+          <li class="pr-item">Performance optimization</li>
+          <li class="pr-item">ROI tracking</li>
+          <li class="pr-item">Monthly strategy reviews</li>
+          <li class="pr-item">24/7 campaign monitoring</li>
+        </ul>
+      </div>
+
+      <!-- PRINT & DIGITAL DESIGN -->
+      <div class="pr-card r rd1" data-service="print-design" style="display:none">
+        <h3 class="pr-name">Basic Card</h3>
+        <div class="pr-amt">R 400 <span style="font-size:.8rem">/card</span></div>
+        <ul class="pr-items">
+          <li class="pr-item">Custom design</li>
+          <li class="pr-item">Standard layout</li>
+          <li class="pr-item">1 revision round</li>
+          <li class="pr-item">Digital delivery</li>
+        </ul>
+      </div>
+      <div class="pr-card feat r rd2" data-service="print-design" style="display:none">
+        <span class="feat-badge">Most popular</span>
+        <h3 class="pr-name">Animated Digital Invite</h3>
+        <div class="pr-amt">R 700 <span style="font-size:.8rem">/card</span></div>
+        <ul class="pr-items">
+          <li class="pr-item">Full animation included</li>
+          <li class="pr-item">Interactive elements</li>
+          <li class="pr-item">Music/sound option</li>
+          <li class="pr-item">2 revision rounds</li>
+          <li class="pr-item">Tracking link included</li>
+        </ul>
+      </div>
+      <div class="pr-card r rd3" data-service="print-design" style="display:none">
+        <h3 class="pr-name">Bulk Discount (5+ cards)</h3>
+        <div class="pr-amt">R 300 <span style="font-size:.8rem">/card</span></div>
+        <ul class="pr-items">
+          <li class="pr-item">Same quality designs</li>
+          <li class="pr-item">Greater savings per card</li>
+          <li class="pr-item">Customizable templates</li>
+          <li class="pr-item">Flexible delivery</li>
+        </ul>
+      </div>
+
+      <!-- BRANDING & IDENTITY -->
+      <div class="pr-card r rd1" data-service="branding" style="display:none">
+        <h3 class="pr-name">Branding Kit</h3>
+        <div class="pr-amt">R 3,000</div>
+        <ul class="pr-items">
+          <li class="pr-item">Color palette</li>
+          <li class="pr-item">Typography guidelines</li>
+          <li class="pr-item">Brand voice guidelines</li>
+          <li class="pr-item">Branding assets</li>
+        </ul>
+      </div>
+      <div class="pr-card feat r rd2" data-service="branding" style="display:none">
+        <span class="feat-badge">Most popular</span>
+        <h3 class="pr-name">Full Branding Kit + Logo</h3>
+        <div class="pr-amt">R 5,500 – R 7,000</div>
+        <ul class="pr-items">
+          <li class="pr-item">Custom logo design</li>
+          <li class="pr-item">Full branding kit</li>
+          <li class="pr-item">Logo variations</li>
+          <li class="pr-item">Brand identity guide</li>
+          <li class="pr-item">3 revision rounds</li>
+        </ul>
+      </div>
+      <div class="pr-card r rd3" data-service="branding" style="display:none">
+        <h3 class="pr-name">Brand Refresh</h3>
+        <div class="pr-amt">R 2,000 – R 2,800</div>
+        <ul class="pr-items">
+          <li class="pr-item">Existing brand update</li>
+          <li class="pr-item">Logo refinement</li>
+          <li class="pr-item">Updated guidelines</li>
+          <li class="pr-item">Modern brand direction</li>
+        </ul>
+      </div>
+
+      <!-- SOCIAL MEDIA CONTENT -->
+      <div class="pr-card r rd1" data-service="social-content" style="display:none">
+        <h3 class="pr-name">Per Post Package</h3>
+        <div class="pr-amt">R 350 <span style="font-size:.8rem">/post</span></div>
+        <ul class="pr-items">
+          <li class="pr-item">1 custom graphic design</li>
+          <li class="pr-item">Engaging post caption</li>
+          <li class="pr-item">Platform optimized</li>
+          <li class="pr-item">Hashtag research</li>
+        </ul>
+      </div>
+      <div class="pr-card r rd2" data-service="social-content" style="display:none">
+        <h3 class="pr-name">Weekly Content Bundle</h3>
+        <div class="pr-amt">R 1,200 <span style="font-size:.8rem">p/w</span></div>
+        <ul class="pr-items">
+          <li class="pr-item">4 custom graphics</li>
+          <li class="pr-item">4 engaging captions</li>
+          <li class="pr-item">Content calendar included</li>
+          <li class="pr-item">Post scheduling</li>
+          <li class="pr-item">Hashtag optimization</li>
+        </ul>
+      </div>
+      <div class="pr-card feat r rd3" data-service="social-content" style="display:none">
+        <span class="feat-badge">Most popular</span>
+        <h3 class="pr-name">Monthly Content Package</h3>
+        <div class="pr-amt">R 4,000 <span style="font-size:.8rem">p/m</span></div>
+        <ul class="pr-items">
+          <li class="pr-item">16 custom graphics</li>
+          <li class="pr-item">16 engaging captions</li>
+          <li class="pr-item">Full content calendar</li>
+          <li class="pr-item">Weekly scheduling</li>
+          <li class="pr-item">Trends & hashtag research</li>
+          <li class="pr-item">Monthly performance report</li>
         </ul>
       </div>
     </div>
@@ -1160,10 +1399,43 @@ window.addEventListener('scroll',()=>{
 },{passive:true});
 
 /* ════════════════════════════════════════
+   PRICING FILTER
+════════════════════════════════════════ */
+const filterBtns = document.querySelectorAll('.filter-btn');
+const pricingCards = document.querySelectorAll('.pr-card');
+
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', function() {
+    const service = this.getAttribute('data-service');
+    
+    // Update active button
+    filterBtns.forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    
+    // Filter cards with animation
+    pricingCards.forEach(card => {
+      const cardService = card.getAttribute('data-service');
+      if(cardService === service) {
+        card.style.display = 'flex';
+        setTimeout(() => {
+          card.style.opacity = '1';
+        }, 10);
+      } else {
+        card.style.opacity = '0';
+        setTimeout(() => {
+          card.style.display = 'none';
+        }, 300);
+      }
+    });
+  });
+});
+
+/* ════════════════════════════════════════
    CONTACT FORM REDIRECT
 ════════════════════════════════════════ */
 const cf=document.querySelector('.contact-form');
 if(cf){cf.addEventListener('submit',function(){setTimeout(()=>{window.location.href='thank-you.html';},1000);});}
+
 </script>
 </body>
 </html>
